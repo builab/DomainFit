@@ -52,10 +52,11 @@ for f in fits:
 	if f.correlation() > max_corr:
 		max_corr = f.correlation()
 		best_fit = [f]
-		
-log_file = open(r"fit_logs.txt", "a")
-log_file.write('%s %s\n' % (model_basename, max_corr))
-log_file.close()
+
+log_file = output_dir + '/fit_logs.txt'
+log = open(log_file, "a")
+log.write('%s,%s,%s\n' % (model_basename,model.chains[0].num_residues, max_corr))
+log.close()
 
 from chimerax.map_fit.search import save_fits
 print ('Writing %s with correlation of %0.3f' % (outFit, max_corr))

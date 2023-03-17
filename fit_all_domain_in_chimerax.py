@@ -24,10 +24,12 @@ resolution = sys.argv[5]
 search = sys.argv[6]
 
 # Initiate a log file
-log_file = open(r"fit_logs.txt", "w")
-log_file.write(datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
-log_file.write("\n")
-log_file.close()
+log_file = output_dir + '/fit_logs.txt'
+log = open(log_file, "w")
+log.write("#{}\n".format(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")))
+log.write("\nDomain,NoRes,Corr\n")
+log.write("\n")
+log.close()
 
 list = os.listdir(pdb_dir)
 cmds=[]

@@ -4,26 +4,49 @@
 """
 @Authors Max Tong & HB
 @Require ChimeraX
+Eliminate domain smaller than a minLength or larger than a maxLength
+save
 """
 from chimerax.core.commands import run
 import os.path
 import sys,os
 
-input_dir = sys.argv[1]
+input_pdb = sys.argv[1]
 output_dir = sys.argv[2]
-modelFile = sys.argv[3]
 
-inputModel = os.path.join(input_dir, modelFile) 
-model = run(session, 'open %s' % inputModel)[0]
+if len(sys.argv) < 3:
+	min_length = 50
+else:
+	min_length = int(sys.argv[3])
 
-# outputDir = '/Users/kbui2/Desktop/tip_CP'
-modelName = os.path.basename(inputModel)
+if len(sys.argv) < 4:
+	max_length = 1000
+else:
+	max_length = int(sys.argv[4])
 
-print(range(model.num_chains))
+model = run(session, 'open %s' % input_pdb)[0]
+
+model_basename = os.path.basename(input_pdb).replace('_domains.pdb','')
+
+print('Saving chains between ' + str(min_length) + ' and ' + str(max_length) + ' aa')
+
+log_file = output_dir + '/domain_logs.txt'
+log = open(log_file, "a")
+
+
 for chainNo in range(model.num_chains):
+	noResidues = int(model.chains[chainNo].num_residues)
+	print('Chain ' + model.chains[chainNo].chain_id + ' has ' + str(model.chains[chainNo].num_residues))
+	log.write('%s,%s,%d\n' % (model_basename, model.chains[chainNo].chain_id, noResidues))
+	if noResidues < min_length or noResidues > max_length:
+		print('--> Skip due to length')
+		continue		
 	print('Saving chain ' + model.chains[chainNo].chain_id)
 	run(session, 'select /%s' % model.chains[chainNo].chain_id)
-	outputPdb = output_dir + '/' + modelName.replace('_domains.pdb', '_domain') + str(chainNo) + '.pdb'
-	run(session, 'save %s selectedOnly true models #%d' % (outputPdb, 1))
+	output_pdb = output_dir + '/' + model_basename +  '_domain' + str(chainNo) + '.pdb'
+	run(session, 'save %s selectedOnly true models #%d' % (output_pdb, 1))
 	
-# runscript save_domain_single.py /storage2/Thibault/Max/test_parsing/output /storage2/Thibault/Max/test_parsing Q22DM0_processed.pdb
+# runscript save_domain_single.py /storage2/Thibault/Max/test_parsing Q22DM0_processed.pdb
+#/storage2/Thibault/Max/test_parsing/output 50 1000
+
+log.close()
