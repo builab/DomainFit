@@ -9,8 +9,9 @@ import os.path
 input_model = sys.argv[1]
 output_dir = sys.argv[2]
 input_map = sys.argv[3]
-resolution = float(sys.argv[4])
-search = int(sys.argv[5])
+map_level = float(sys.argv[4])
+resolution = float(sys.argv[5])
+search = int(sys.argv[6])
 
 
 # This load to ChimeraX (still required interface)
@@ -18,8 +19,7 @@ from chimerax.core.commands import run
 map = run(session, 'open %s' % input_map)[0]
 
 # Set threshold
-threshold = 0.0394
-run(session, 'volume #1 level %0.4f transparency 0.5' % threshold)
+run(session, 'volume #1 level %0.4f transparency 0.5 step 1' % map_level)
 
 model = run(session, 'open %s' % input_model)[0]
 
