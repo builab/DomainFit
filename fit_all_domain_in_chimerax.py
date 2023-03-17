@@ -3,6 +3,7 @@
 
 """
 @Authors Max Tong & HB
+@Require ChimeraX 1.5 with proper excecutable
 """
 # Usage
 # python fit_all_domain_in_chimerax pdb_dir output_dir input_map map_level resolution search
@@ -24,7 +25,7 @@ search = sys.argv[6]
 
 # Initiate a log file
 log_file = open(r"fit_logs.txt", "w")
-log_file.write(datetime.now())
+log_file.write(datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
 log_file.write("\n")
 log_file.close()
 
@@ -33,7 +34,7 @@ cmds=[]
 for pdb in os.listdir(pdb_dir):
     if pdb.endswith(".pdb"):
         # Add them to the command list
-        cmds.append(f'chimerax-daily --nogui --offscreen --cmd \"runscript {script_dir}/fit_in_chimerax.py {pdb_dir}/{pdb} {output_dir} {input_map} {map_level} {resolution} {search}" --exit')
+        cmds.append(f'ChimeraX --nogui --offscreen --cmd \"runscript {script_dir}/fit_in_chimerax.py {pdb_dir}/{pdb} {output_dir} {input_map} {map_level} {resolution} {search}" --exit')
 
 # Execute command list
 #os.chdir(output_dir)

@@ -53,7 +53,7 @@ for f in fits:
 		max_corr = f.correlation()
 		best_fit = [f]
 		
-log_file = open(r"fit_logs.txt", "w")
+log_file = open(r"fit_logs.txt", "a")
 log_file.write('%s %s\n' % (model_basename, max_corr))
 log_file.close()
 
