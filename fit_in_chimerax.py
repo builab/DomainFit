@@ -55,7 +55,7 @@ for f in fits:
 
 log_file = output_dir + '/fit_logs.txt'
 log = open(log_file, "a")
-log.write('%s,%s,%s\n' % (model_basename,model.chains[0].num_residues, max_corr))
+log.write('%s,%s,%0.4f\n' % (model_basename,model.chains[0].num_residues, max_corr))
 log.close()
 
 from chimerax.map_fit.search import save_fits
