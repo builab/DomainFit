@@ -29,6 +29,8 @@ run(session, 'volume #1 level %0.4f transparency 0.5 step 1' % map_level)
 model = run(session, 'open %s' % input_model)[0]
 
 model_basename = os.path.basename(input_model)
+model_basename = model_basename.replace('.pdb', '')
+
 print('Reading ' + input_model)
 
 outlist = output_dir + '/' + model_basename + '.csv'
