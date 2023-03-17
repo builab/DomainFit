@@ -1,3 +1,11 @@
+#!/usr/bin/python
+# # -*- coding: utf-8 -*-
+
+"""
+@Authors Max Tong & HB
+@Require ChimeraX
+"""
+
 import sys,os,time
 from datetime import datetime
 script_dir=os.path.dirname(os.path.realpath(__file__))
