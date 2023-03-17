@@ -1,5 +1,9 @@
 #!/usr/bin/python
+# # -*- coding: utf-8 -*-
 
+"""
+@Authors Max Tong & HB
+"""
 # Usage
 # python fit_all_domain_in_chimerax pdb_dir output_dir input_map map_level resolution search
 
