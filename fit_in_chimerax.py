@@ -31,7 +31,7 @@ outlist = output_dir + '/' + model_basename + '.csv'
 print(outlist)
 
 from chimerax.map_fit.fitcmd import fitmap
-fits = fitmap(session, model, map, resolution=resolution, search=search, placement='sr')
+fits = fitmap(session, model, map, resolution=resolution, search=search, placement='sr', logFits=outlist)
 
 # logFits=outlist
 #print(fits)
