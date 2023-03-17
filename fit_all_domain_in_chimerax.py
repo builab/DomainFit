@@ -7,6 +7,9 @@
 # Usage
 # python fit_all_domain_in_chimerax pdb_dir output_dir input_map map_level resolution search
 
+# TODO
+# Write a file for the best fit correlation for each domain as a summary
+
 import sys,os,time
 from datetime import datetime
 script_dir=os.path.dirname(os.path.realpath(__file__))
@@ -18,6 +21,12 @@ input_map = sys.argv[3]
 map_level = sys.argv[4]
 resolution = sys.argv[5]
 search = sys.argv[6]
+
+# Initiate a log file
+log_file = open(r"fit_logs.txt", "w")
+log_file.write(datetime.now())
+log_file.write("\n")
+log_file.close()
 
 list = os.listdir(pdb_dir)
 cmds=[]
