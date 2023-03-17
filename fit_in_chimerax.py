@@ -1,4 +1,9 @@
 #!/usr/bin/python
+# # -*- coding: utf-8 -*-
+
+"""
+@Authors Max Tong & HB
+"""
 
 # Python open a map
 print("WARNING: Only work with Chimerax 1.5 and up")
