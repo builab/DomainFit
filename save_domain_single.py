@@ -1,5 +1,10 @@
 #!/usr/bin/python
+# # -*- coding: utf-8 -*-
 
+"""
+@Authors Max Tong & HB
+@Require ChimeraX
+"""
 from chimerax.core.commands import run
 import os.path
 import sys,os
