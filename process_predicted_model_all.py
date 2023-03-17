@@ -1,3 +1,10 @@
+#!/usr/bin/python
+# # -*- coding: utf-8 -*-
+
+"""
+@Authors Max Tong & HB
+@Require phenix 1.20
+"""
 import sys,os,time
 from datetime import datetime
 script_dir=os.path.dirname(os.path.realpath(__file__))
