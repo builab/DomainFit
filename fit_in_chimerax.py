@@ -10,6 +10,8 @@ print("WARNING: Only work with Chimerax 1.5 and up")
 
 import sys,os,time
 import os.path
+import inspect
+
 
 input_model = sys.argv[1]
 output_dir = sys.argv[2]
@@ -48,15 +50,18 @@ max_corr = 0
 best_fit = []
 outFit = output_dir + '/' + model_basename +  '_bestfit.pdb'
 
+
 for f in fits:
 	if f.correlation() > max_corr:
 		max_corr = f.correlation()
+		#print(inspect.getmembers(f))
 		best_fit = [f]
 
 log_file = output_dir + '/fit_logs.txt'
 log = open(log_file, "a")
 log.write('%s,%s,%0.4f\n' % (model_basename,model.chains[0].num_residues, max_corr))
 log.close()
+
 
 from chimerax.map_fit.search import save_fits
 print ('Writing %s with correlation of %0.3f' % (outFit, max_corr))
