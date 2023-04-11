@@ -4,7 +4,6 @@
 """
 @Authors Max Tong & HB
 @Require phenix 1.20
-@v0.1 Update with option
 """
 import sys,os,time
 from datetime import datetime
@@ -15,23 +14,13 @@ def print_usage ():
     print("usage: python process_predicted_model_all.py <inputDir> <outputDir> options")
     sys.exit()
 
-# Default option seems to work very well
-default_options = "maximum_rmsd=.8 maximum_domains=8"
-
-if len(sys.argv) < 2 :
+if len(sys.argv) > 3 or len(sys.argv) < 2 :
     print_usage()
-    exit()
-
-if len(sys.argv) == 2:
-	options = default_options
 else:
     logs=[]
-    options = ' '.join(sys.argv[3:-1])    
-    
-input_dir = sys.argv[1]
-output_dir = sys.argv[2]
-
-print(f'Process_predicted_model options: {options}')
+    input_dir = sys.argv[1]
+    output_dir = sys.argv[2]
+    # options = sys.argv[3]
 
 list = os.listdir(input_dir)
 cmds=[]
@@ -39,7 +28,7 @@ for pdb in os.listdir(input_dir):
     if pdb.endswith(".pdb"):
         # Add them to the command list
         out_pdb = pdb.replace('.pdb', '_domains')
-        cmds.append(f'phenix.process_predicted_model {input_dir}/{pdb} processed_model_prefix={output_dir}/{out_pdb} {options}')
+        cmds.append(f'phenix.process_predicted_model {input_dir}/{pdb} processed_model_prefix={output_dir}/{out_pdb} split_model_by_compact_regions=True')
 
 # Execute command list
 #os.chdir(output_dir)
