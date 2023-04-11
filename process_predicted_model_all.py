@@ -20,13 +20,12 @@ default_options = "maximum_rmsd=.8 maximum_domains=8"
 
 if len(sys.argv) < 3 :
     print_usage()
-    exit()
 
 if len(sys.argv) == 3:
 	options = default_options
 else:
     logs=[]
-    options = ' '.join(sys.argv[3:-1])    
+    options = ' '.join(sys.argv[3:])  
     
 input_dir = sys.argv[1]
 output_dir = sys.argv[2]
