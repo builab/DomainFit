@@ -13,6 +13,7 @@ import subprocess
 
 def print_usage ():
     print("usage: python process_predicted_model_all.py <inputDir> <outputDir> options")
+    print("eg: python process_predicted_model_all.py input domains maximum_rmsd=.8 maximum_domains=8")
     sys.exit()
 
 # Default option seems to work very well
