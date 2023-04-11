@@ -18,15 +18,15 @@ def print_usage ():
 # Default option seems to work very well
 default_options = "maximum_rmsd=.8 maximum_domains=8"
 
-if len(sys.argv) < 2 :
+if len(sys.argv) < 3 :
     print_usage()
     exit()
 
-if len(sys.argv) == 2:
+if len(sys.argv) == 3:
 	options = default_options
 else:
     logs=[]
-    options = ' '.join(sys.argv[2:-1])    
+    options = ' '.join(sys.argv[3:-1])    
     
 input_dir = sys.argv[1]
 output_dir = sys.argv[2]
