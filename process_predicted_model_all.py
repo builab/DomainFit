@@ -26,7 +26,7 @@ if len(sys.argv) == 2:
 	options = default_options
 else:
     logs=[]
-    options = ' '.join(sys.argv[3:-1])    
+    options = ' '.join(sys.argv[2:-1])    
     
 input_dir = sys.argv[1]
 output_dir = sys.argv[2]
