@@ -14,7 +14,7 @@
 import sys,os,time
 from datetime import datetime
 script_dir=os.path.dirname(os.path.realpath(__file__))
-import subprocess
+import subprocess, multiprocessing
 
 pdb_dir = sys.argv[1]
 output_dir = sys.argv[2]
@@ -26,9 +26,9 @@ search = sys.argv[6]
 # Initiate a log file
 log_file = output_dir + '/fit_logs.txt'
 log = open(log_file, "w")
-log.write("#{}\n".format(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")))
-log.write("\nDomain,NoRes,Corr\n")
-log.write("\n")
+# log.write("#{}\n".format(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")))
+log.write("\nDomain, NoRes, Best_Corr, Second_Best_Corr, Diff, Worst_Corr, Range, P_val_best_fit, Corr_mean, Pvalue\n")
+# log.write("\n")
 log.close()
 
 list = os.listdir(pdb_dir)
@@ -36,12 +36,31 @@ cmds=[]
 for pdb in os.listdir(pdb_dir):
     if pdb.endswith(".pdb"):
         # Add them to the command list
-        cmds.append(f'ChimeraX --nogui --offscreen --cmd \"runscript {script_dir}/fit_in_chimerax.py {pdb_dir}/{pdb} {output_dir} {input_map} {map_level} {resolution} {search}" --exit')
+        cmds.append(f'chimerax --nogui --offscreen --cmd \"runscript {script_dir}/fit_in_chimerax.py {pdb_dir}/{pdb} {output_dir} {input_map} {map_level} {resolution} {search}" --exit')
 
 # Execute command list
 #os.chdir(output_dir)
-for cmd in cmds:
-        print(f'start {cmd}', datetime.now())
-        status = subprocess.call(cmd,shell=True)
+def execute(cmd):
+    print(f'start {cmd}', datetime.now())
+    return subprocess.call(cmd,shell=True)
 #os.chdir(script_dir)
+
+count = multiprocessing.cpu_count()
+with multiprocessing.Pool(processes=count) as pool:
+    results = pool.map(execute, cmds)
+
+# Find best domain based on largest change in fit correlation between first and second hit
+import pandas as pd
+df = pd.read_csv(log_file, sep='\s*,\s*')
+df.info()
+df.dropna()
+print(df)
+for col in df.columns:
+    print(col)
+df.sort_values(['Diff', 'Pvalue'], ascending=[False, False], inplace=True)
+# df.sort_values(by = "Diff", inplace=True, ascending=False)
+
+print(df)
+df.to_csv(output_dir + '/fit_logs_revised.csv', index=False)
+
 

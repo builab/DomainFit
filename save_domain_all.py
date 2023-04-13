@@ -10,7 +10,7 @@ TODO Write out summary for no of AA
 import sys,os,time
 from datetime import datetime
 script_dir=os.path.dirname(os.path.realpath(__file__))
-import subprocess
+import subprocess, multiprocessing
 
 def print_usage ():
     print("usage: python save_domain_all.py inputDir outputDir minLength maxLength")
@@ -48,13 +48,18 @@ cmds=[]
 for pdb in os.listdir(input_dir):
     if pdb.endswith("domains.pdb"):
         # Add them to the command list
-        cmds.append(f'ChimeraX --nogui --offscreen --cmd \"runscript {script_dir}/save_domain_single.py {input_dir}/{pdb} {output_dir} {min_length} {max_length}" --exit')
+        cmds.append(f'chimerax --nogui --offscreen --cmd \"runscript {script_dir}/save_domain_single.py {input_dir}/{pdb} {output_dir} {min_length} {max_length}" --exit')
 
 print(cmds)
 
 # Execute command list
+# Execute command list
 #os.chdir(output_dir)
-for cmd in cmds:
-        print(f'\nstart {cmd}', datetime.now())
-        status = subprocess.call(cmd,shell=True)
+def execute(cmd):
+    print(f'start {cmd}', datetime.now())
+    return subprocess.call(cmd,shell=True)
 #os.chdir(script_dir)
+
+count = multiprocessing.cpu_count()
+with multiprocessing.Pool(processes=count) as pool:
+    results = pool.map(execute, cmds)
