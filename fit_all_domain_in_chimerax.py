@@ -66,7 +66,7 @@ df.dropna()
 print(df)
 for col in df.columns:
     print(col)
-df.sort_values(['Diff', 'Pvalue'], ascending=[False, False], inplace=True)
+df.sort_values(['Corr_mean', 'Diff'], ascending=[False, False], inplace=True)
 # df.sort_values(by = "Diff", inplace=True, ascending=False)
 
 print(df)
