@@ -11,7 +11,9 @@ print("WARNING: Only work with Chimerax 1.5 and up")
 import sys,os,time
 import os.path
 import inspect
-
+from datetime import datetime
+import subprocess
+script_dir=os.path.dirname(os.path.realpath(__file__))
 
 input_model = sys.argv[1]
 output_dir = sys.argv[2]
@@ -55,17 +57,54 @@ for f in fits:
 	if f.correlation() > max_corr:
 		max_corr = f.correlation()
 		#print(inspect.getmembers(f))
-		best_fit = [f]
+		best_fit = [f]	
 
-log_file = output_dir + '/fit_logs.txt'
-log = open(log_file, "a")
-log.write('%s,%s,%0.4f\n' % (model_basename,model.chains[0].num_residues, max_corr))
-log.close()
+# Determine best fits
+print("cur best: ", fits[0].correlation())
+print("second best: ", fits[1].correlation())
+print("worst best: ", fits[len(fits)-1].correlation())
+
+best_corr = fits[0].correlation()
+second_best_corr = fits[1].correlation()
+worst_best_corr = fits[len(fits)-1].correlation()
+difference = best_corr - second_best_corr
+range = best_corr-worst_best_corr
 
 
+# Save session fits into csv
 from chimerax.map_fit.search import save_fits
 print ('Writing %s with correlation of %0.3f' % (outFit, max_corr))
 save_fits(session, best_fit, outFit)
 run(session, 'save %s/%s.png width 1500 super 3' % (output_dir, model_basename))
+
+# Generate p_values
+
+cmd = f'Rscript {script_dir}/pval_from_solutions.R {outlist}'
+
+print(f'start {cmd}', datetime.now())
+status = subprocess.call(cmd,shell=True)
+if status != 0:
+	print(f"Error in {cmd}.Exiting...")
+print(f'end {cmd}', datetime.now()) 
+
+# Extract p_values
+import pandas as pd
+
+pval_file = output_dir + '/' + model_basename +  '_pvalues.csv'
+
+df = pd.read_csv(pval_file, sep='\s*,\s*')
+# df.info()
+df.dropna()
+# print(df)
+fit_no = df.loc[:, df.columns[0]][0]
+corr_mean = df.loc[:, df.columns[26]][0]
+pvalue = df.loc[:, df.columns[38]][0]
+# print(df.loc[:, df.columns[0]])
+
+# Log best results into log_file
+log_file = output_dir + '/fit_logs.txt'
+log = open(log_file, "a")
+log.write('%s,%s,%0.4f,%0.4f,%0.4f,%0.4f,%0.4f,%s,%0.4f,%0.4f\n' % (model_basename,model.chains[0].num_residues, best_corr, second_best_corr, difference, worst_best_corr, range, fit_no, corr_mean, pvalue))
+log.close()
 
 # runscript /storage2/Thibault/Max/ProteinAnalysis/fit_in_chimerax.py /storage2/Thibault/Max/test_parsing /storage2/Thibault/Max/test_parsing C1C2_MAP_only_erase.mrc Q22DM0.pdb
