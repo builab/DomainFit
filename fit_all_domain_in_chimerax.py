@@ -16,9 +16,17 @@ from datetime import datetime
 script_dir=os.path.dirname(os.path.realpath(__file__))
 import subprocess, multiprocessing
 
+def print_usage ():
+    print("usage: python fit_all_domain_in_chimerax.py inputDir outputDir inputMap mapLevel resolution searchNo noProcessor")
+    print("eg: python fit_all_domain_in_chimerax.py single_domains solutions ref.mrc 0.0394 5 200 10")
+    sys.exit()
+    
 def execute(cmd):
     print(f'start {cmd}', datetime.now())
     return subprocess.call(cmd,shell=True)
+
+if len(sys.argv) < 7 :
+    print_usage()
 
 pdb_dir = sys.argv[1]
 output_dir = sys.argv[2]
