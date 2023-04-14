@@ -12,8 +12,8 @@ script_dir=os.path.dirname(os.path.realpath(__file__))
 import subprocess, multiprocessing
 
 def print_usage ():
-    print("usage: python process_predicted_model_all.py <inputDir> <outputDir> options")
-    print("eg: python process_predicted_model_all.py input domains maximum_rmsd=.8 maximum_domains=8")
+    print("usage: python process_predicted_model_all.py <inputDir> <outputDir> <noProc> options")
+    print("eg: python process_predicted_model_all.py input domains 10 maximum_rmsd=.8 maximum_domains=8")
     sys.exit()
     
 def execute(cmd):

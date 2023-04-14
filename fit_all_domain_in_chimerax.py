@@ -6,7 +6,7 @@
 @Require ChimeraX 1.5 with proper excecutable
 """
 # Usage
-# python fit_all_domain_in_chimerax pdb_dir output_dir input_map map_level resolution search
+# python fit_all_domain_in_chimerax pdb_dir output_dir input_map map_level resolution search numProc
 
 # TODO
 # Write a file for the best fit correlation for each domain as a summary
@@ -16,6 +16,10 @@ from datetime import datetime
 script_dir=os.path.dirname(os.path.realpath(__file__))
 import subprocess, multiprocessing
 
+def execute(cmd):
+    print(f'start {cmd}', datetime.now())
+    return subprocess.call(cmd,shell=True)
+
 pdb_dir = sys.argv[1]
 output_dir = sys.argv[2]
 input_map = sys.argv[3]
@@ -23,6 +27,11 @@ map_level = sys.argv[4]
 resolution = sys.argv[5]
 search = sys.argv[6]
 
+if len(sys.argv) == 7:
+	threads = 10; # Default 10 threads
+else:
+	threads = sys.argv[7]
+	
 # Initiate a log file
 log_file = output_dir + '/fit_logs.txt'
 log = open(log_file, "w")
@@ -38,15 +47,7 @@ for pdb in os.listdir(pdb_dir):
         # Add them to the command list
         cmds.append(f'chimerax --nogui --offscreen --cmd \"runscript {script_dir}/fit_in_chimerax.py {pdb_dir}/{pdb} {output_dir} {input_map} {map_level} {resolution} {search}" --exit')
 
-# Execute command list
-#os.chdir(output_dir)
-def execute(cmd):
-    print(f'start {cmd}', datetime.now())
-    return subprocess.call(cmd,shell=True)
-#os.chdir(script_dir)
-
-count = multiprocessing.cpu_count()
-with multiprocessing.Pool(processes=count) as pool:
+with multiprocessing.Pool(processes=threads) as pool:
     results = pool.map(execute, cmds)
 
 # Find best domain based on largest change in fit correlation between first and second hit

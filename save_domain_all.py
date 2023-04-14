@@ -12,8 +12,12 @@ from datetime import datetime
 script_dir=os.path.dirname(os.path.realpath(__file__))
 import subprocess, multiprocessing
 
+def execute(cmd):
+    print(f'start {cmd}', datetime.now())
+    return subprocess.call(cmd,shell=True)
+
 def print_usage ():
-    print("usage: python save_domain_all.py inputDir outputDir minLength maxLength")
+    print("usage: python save_domain_all.py inputDir outputDir minLength maxLength noProcessor")
     sys.exit()
 #print(len(sys.argv))
 
@@ -24,6 +28,8 @@ else:
     input_dir = sys.argv[1]
     output_dir = sys.argv[2]
     
+threads = 10
+
 if len(sys.argv) < 3:
 	min_length = '50'
 else:
@@ -33,6 +39,9 @@ if len(sys.argv) < 4:
 	max_length = '1000'
 else:
 	max_length = sys.argv[4]
+	
+if len(sys.argv) == 6:
+	threads = sys.argv[5]
 	
 print('Saving chains between ' + min_length + ' and ' + max_length + ' aa')
 
@@ -52,14 +61,5 @@ for pdb in os.listdir(input_dir):
 
 print(cmds)
 
-# Execute command list
-# Execute command list
-#os.chdir(output_dir)
-def execute(cmd):
-    print(f'start {cmd}', datetime.now())
-    return subprocess.call(cmd,shell=True)
-#os.chdir(script_dir)
-
-count = multiprocessing.cpu_count()
-with multiprocessing.Pool(processes=count) as pool:
+with multiprocessing.Pool(processes=threads) as pool:
     results = pool.map(execute, cmds)
