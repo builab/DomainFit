@@ -9,6 +9,7 @@
 # python fit_all_domain_in_chimerax pdb_dir output_dir input_map map_level resolution search numProc
 
 # TODO
+# Add also cif option
 # Write a file for the best fit correlation for each domain as a summary
 
 import sys,os,time
@@ -51,7 +52,7 @@ log.close()
 list = os.listdir(pdb_dir)
 cmds=[]
 for pdb in os.listdir(pdb_dir):
-    if pdb.endswith(".pdb"):
+    if pdb.endswith((".pdb", ".cif")):
         # Add them to the command list
         cmds.append(f'chimerax --nogui --offscreen --cmd \"runscript {script_dir}/fit_in_chimerax.py {pdb_dir}/{pdb} {output_dir} {input_map} {map_level} {resolution} {search}" --exit')
 
