@@ -3,6 +3,7 @@
 
 """
 @Authors Max Tong & HB
+# Better use re.sub for replace .pdb or .cif
 """
 
 # Python open a map
@@ -33,7 +34,7 @@ run(session, 'volume #1 level %0.4f transparency 0.5 step 1' % map_level)
 model = run(session, 'open %s' % input_model)[0]
 
 model_basename = os.path.basename(input_model)
-model_basename = model_basename.replace('.pdb', '')
+model_basename = model_basename.replace('.pdb', '').repace('.cif', '')
 
 print('Reading ' + input_model)
 
