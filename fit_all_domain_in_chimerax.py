@@ -39,7 +39,7 @@ search = sys.argv[6]
 if len(sys.argv) == 7:
 	threads = 10; # Default 10 threads
 else:
-	threads = sys.argv[7]
+	threads = init(sys.argv[7])
 	
 # Initiate a log file
 log_file = output_dir + '/fit_logs.txt'
