@@ -6,7 +6,7 @@
 @Require phenix 1.20
 @v0.2 Update with multiprocessing and phenix lddt option
 """
-import sys,os,time
+import sys,os,time,platform
 from datetime import datetime
 script_dir=os.path.dirname(os.path.realpath(__file__))
 import subprocess, multiprocessing
@@ -36,6 +36,8 @@ else:
 input_dir = sys.argv[1]
 output_dir = sys.argv[2]
 threads = int(sys.argv[3])
+
+print(platform.system())
 
 print(f'Process_predicted_model options: {options}')
 
