@@ -37,7 +37,6 @@ input_dir = sys.argv[1]
 output_dir = sys.argv[2]
 threads = int(sys.argv[3])
 
-print(platform.system())
 
 print(f'Process_predicted_model options: {options}')
 

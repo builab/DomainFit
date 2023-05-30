@@ -29,6 +29,10 @@ def execute(cmd):
 if len(sys.argv) < 7 :
     print_usage()
 
+print("Platform: " + platform.system())
+if platform.system == 'Darwin':
+	print ("No capability to generate picture on MacOS!!!")
+	
 pdb_dir = sys.argv[1]
 output_dir = sys.argv[2]
 input_map = sys.argv[3]
@@ -54,7 +58,10 @@ cmds=[]
 for pdb in os.listdir(pdb_dir):
     if pdb.endswith((".pdb", ".cif")):
         # Add them to the command list
-        cmds.append(f'chimerax --nogui --offscreen --cmd \"runscript {script_dir}/fit_in_chimerax.py {pdb_dir}/{pdb} {output_dir} {input_map} {map_level} {resolution} {search}" --exit')
+        if useMacOs == 1:
+        	cmds.append(f'ChimeraX --nogui --offscreen --cmd \"runscript {script_dir}/fit_in_chimerax.py {pdb_dir}/{pdb} {output_dir} {input_map} {map_level} {resolution} {search}" --exit')
+        else:
+        	cmds.append(f'chimerax --nogui --offscreen --cmd \"runscript {script_dir}/fit_in_chimerax.py {pdb_dir}/{pdb} {output_dir} {input_map} {map_level} {resolution} {search}" --exit')
 
 with multiprocessing.Pool(processes=threads) as pool:
     results = pool.map(execute, cmds)

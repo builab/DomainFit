@@ -76,7 +76,14 @@ range = best_corr-worst_best_corr
 from chimerax.map_fit.search import save_fits
 print ('Writing %s with correlation of %0.3f' % (outFit, max_corr))
 save_fits(session, best_fit, outFit)
-run(session, 'save %s/%s.png width 1500 super 3' % (output_dir, model_basename))
+
+# Check operating system
+useMacOs = 0
+if platform.system == 'Darwin': #MacOS
+	useMacOs = 1
+
+if useMacOs == 0 :
+	run(session, 'save %s/%s.png width 1500 super 3' % (output_dir, model_basename))
 
 # Generate p_values
 

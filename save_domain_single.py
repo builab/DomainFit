@@ -33,7 +33,11 @@ print('Saving chains between ' + str(min_length) + ' and ' + str(max_length) + '
 log_file = output_dir + '/domain_logs.txt'
 log = open(log_file, "a")
 
-
+# Check operating system
+useMacOs = 0
+if platform.system == 'Darwin': #MacOS
+	useMacOs = 1
+	
 for chainNo in range(model.num_chains):
 	noResidues = int(model.chains[chainNo].num_residues)
 	print('Chain ' + model.chains[chainNo].chain_id + ' has ' + str(model.chains[chainNo].num_residues))
@@ -45,8 +49,10 @@ for chainNo in range(model.num_chains):
 	run(session, 'select /%s' % model.chains[chainNo].chain_id)
 	output_pdb = output_dir + '/' + model_basename +  '_domain' + str(chainNo) + '.pdb'
 	run(session, 'save %s selectedOnly true models #%d' % (output_pdb, 1))
-	output_png = output_dir + '/' + model_basename +  '_domain' + str(chainNo) + '.png'
-	run(session, 'save %s width 1000 super 3' % output_png)
+	if useMacOs == 0 : #MacOS
+		output_png = output_dir + '/' + model_basename +  '_domain' + str(chainNo) + '.png'
+		run(session, 'save %s width 1000 super 3' % output_png)
+	
 
 # runscript save_domain_single.py /storage2/Thibault/Max/test_parsing Q22DM0_processed.pdb
 #/storage2/Thibault/Max/test_parsing/output 50 1000

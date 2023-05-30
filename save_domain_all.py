@@ -28,6 +28,13 @@ else:
     input_dir = sys.argv[1]
     output_dir = sys.argv[2]
     
+print("Platform: " + platform.system())
+# Check operating system
+useMacOs = 0
+if platform.system == 'Darwin': #MacOS
+	useMacOs = 1
+	print ("No capability to generate picture on MacOS!!!")
+    
 threads = 10
 
 if len(sys.argv) < 3:
@@ -57,7 +64,10 @@ cmds=[]
 for pdb in os.listdir(input_dir):
     if pdb.endswith("domains.pdb"):
         # Add them to the command list
-        cmds.append(f'chimerax --nogui --offscreen --cmd \"runscript {script_dir}/save_domain_single.py {input_dir}/{pdb} {output_dir} {min_length} {max_length}" --exit')
+        if useMacOs == 1:
+            cmds.append(f'ChimeraX --nogui --offscreen --cmd \"runscript {script_dir}/save_domain_single.py {input_dir}/{pdb} {output_dir} {min_length} {max_length}" --exit')
+        else:
+        	cmds.append(f'chimerax --nogui --offscreen --cmd \"runscript {script_dir}/save_domain_single.py {input_dir}/{pdb} {output_dir} {min_length} {max_length}" --exit')
 
 print(cmds)
 
