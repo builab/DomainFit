@@ -35,7 +35,7 @@ log = open(log_file, "a")
 
 # Check operating system
 useMacOs = 0
-if platform.system == 'Darwin': #MacOS
+if sys.platform == 'darwin': #MacOS
 	useMacOs = 1
 	
 for chainNo in range(model.num_chains):

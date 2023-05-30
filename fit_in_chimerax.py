@@ -34,7 +34,7 @@ run(session, 'volume #1 level %0.4f transparency 0.5 step 1' % map_level)
 model = run(session, 'open %s' % input_model)[0]
 
 model_basename = os.path.basename(input_model)
-model_basename = model_basename.replace('.pdb', '').repace('.cif', '')
+model_basename = model_basename.replace('.pdb', '').replace('.cif', '')
 
 print('Reading ' + input_model)
 
@@ -79,7 +79,7 @@ save_fits(session, best_fit, outFit)
 
 # Check operating system
 useMacOs = 0
-if platform.system == 'Darwin': #MacOS
+if sys.platform == 'darwin': #MacOS
 	useMacOs = 1
 
 if useMacOs == 0 :
