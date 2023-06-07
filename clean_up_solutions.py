@@ -35,7 +35,7 @@ if __name__ == "__main__":
 	if os.path.exists(sol_dir + '/fit_logs_revised.csv'):
 		df = pd.read_csv(sol_dir + '/fit_logs_revised.csv', skiprows=range(1, noRemain))
 	else:
-		print("{:s} does not exist. Check again!")
+		print("{:s} does not exist. Check again!".format(sol_dir + '/fit_logs_revised.csv'))
 		exit(0)
 	delete_names = df['Domain'].tolist()
 	delete_file_names = [filename + suffix for filename in delete_names for suffix in ["_bestfit.pdb", "_pvalues.csv", ".csv"]]
