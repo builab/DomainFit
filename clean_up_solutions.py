@@ -2,7 +2,7 @@
 # # -*- coding: utf-8 -*-
 
 """
-@Authors Jerry Gao & HB
+@Authors Jerry Gao
 """
 # Usage
 # python clean_up_solutions.py solutions_dir number_of_top_candidate_retained
