@@ -15,10 +15,6 @@ def print_usage ():
     print("usage: python clean_up_solutions.py solutions_dir number_of_top_candidate_retained")
     print("eg: python clean_up_solutions.py solutions_density1 10")
     sys.exit()
-    
-def execute(cmd):
-    print(f'start {cmd}', datetime.now())
-    return subprocess.call(cmd,shell=True)
 
 if __name__ == "__main__":
 
@@ -35,7 +31,7 @@ if __name__ == "__main__":
     sol_dir = sys.argv[1]
     noRemain = int(sys.argv[2])
 	
-	
+	print("Delete everything except the top {:d}".format(noRemain))
     df = pd.read_csv(sol_dir + '/fit_logs_revised.csv', skiprows=range(1, noRemain))
     delete_names = df['Domain'].tolist()
     delete_file_names = [filename + suffix for filename in delete_names for suffix in ["_bestfit.pdb", "_pvalues.csv", ".csv"]]
