@@ -21,45 +21,58 @@ def print_usage ():
     sys.exit()
 #print(len(sys.argv))
 
-if len(sys.argv) < 2 :
-    print_usage()
-else:
-    logs=[]
-    input_dir = sys.argv[1]
-    output_dir = sys.argv[2]
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2 :
+        print_usage()
+    else:
+        logs=[]
+        input_dir = sys.argv[1]
+        output_dir = sys.argv[2]
     
-threads = 10
+    # Check operating system
+    useMacOs = 0
+    print("Platform: " + sys.platform)
 
-if len(sys.argv) < 3:
-	min_length = '50'
-else:
-	min_length = sys.argv[3]
+    if sys.platform == 'darwin': #MacOS
+        useMacOs = 1
+        print ("No capability to generate picture on MacOS!!!")
+    
+    threads = 1
 
-if len(sys.argv) < 4:
-	max_length = '1000'
-else:
-	max_length = sys.argv[4]
-	
-if len(sys.argv) == 6:
-	threads = sys.argv[5]
-	
-print('Saving chains between ' + min_length + ' and ' + max_length + ' aa')
+    if len(sys.argv) < 3:
+        min_length = '50'
+    else:
+        min_length = sys.argv[3]
 
-log_file = output_dir + '/domain_logs.txt'
-log = open(log_file, "w")
-log.write("#{}\n".format(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")))
-log.write("\nUniprotId,Domain,NoResidues\n")
-log.close()
+    if len(sys.argv) < 4:
+        max_length = '1000'
+    else:
+        max_length = sys.argv[4]
+    
+    if len(sys.argv) == 6:
+        threads = sys.argv[5]
+    
+    print('Saving chains between ' + min_length + ' and ' + max_length + ' aa')
+
+    log_file = output_dir + '/domain_logs.txt'
+    log = open(log_file, "w")
+    log.write("#{}\n".format(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")))
+    log.write("\nUniprotId,Domain,NoResidues\n")
+    log.close()
 
 
-list = os.listdir(input_dir)
-cmds=[]
-for pdb in os.listdir(input_dir):
-    if pdb.endswith("domains.pdb"):
-        # Add them to the command list
-        cmds.append(f'chimerax --nogui --offscreen --cmd \"runscript {script_dir}/save_domain_single.py {input_dir}/{pdb} {output_dir} {min_length} {max_length}" --exit')
+    list = os.listdir(input_dir)
+    cmds=[]
+    for pdb in os.listdir(input_dir):
+        if pdb.endswith("domains.pdb"):
+            # Add them to the command list
+            if useMacOs == 1:
+                cmds.append(f'/Applications/ChimeraX-1.5.app/Contents/MacOS/ChimeraX --nogui --offscreen --cmd \"runscript {script_dir}/save_domain_single.py {input_dir}/{pdb} {output_dir} {min_length} {max_length}" --exit')
+            else:
+                cmds.append(f'chimerax --nogui --offscreen --cmd \"runscript {script_dir}/save_domain_single.py {input_dir}/{pdb} {output_dir} {min_length} {max_length}" --exit')
 
-print(cmds)
+    #print(cmds)
 
-with multiprocessing.Pool(processes=threads) as pool:
-    results = pool.map(execute, cmds)
+    with multiprocessing.Pool(processes=threads) as pool:
+        results = pool.map(execute, cmds)

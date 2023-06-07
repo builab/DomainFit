@@ -95,4 +95,5 @@ Provided columns of mass spectrometry RMSD values, has an additional option to p
 Visualizing domain features: Generates histograms based on the number of residues per domain
 
 > Input: **\<processed>** directory
+
 > Output: histogram

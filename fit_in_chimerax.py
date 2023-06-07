@@ -3,6 +3,7 @@
 
 """
 @Authors Max Tong & HB
+# Better use re.sub for replace .pdb or .cif
 """
 
 # Python open a map
@@ -33,7 +34,7 @@ run(session, 'volume #1 level %0.4f transparency 0.5 step 1' % map_level)
 model = run(session, 'open %s' % input_model)[0]
 
 model_basename = os.path.basename(input_model)
-model_basename = model_basename.replace('.pdb', '')
+model_basename = model_basename.replace('.pdb', '').replace('.cif', '')
 
 print('Reading ' + input_model)
 
@@ -75,7 +76,14 @@ range = best_corr-worst_best_corr
 from chimerax.map_fit.search import save_fits
 print ('Writing %s with correlation of %0.3f' % (outFit, max_corr))
 save_fits(session, best_fit, outFit)
-run(session, 'save %s/%s.png width 1500 super 3' % (output_dir, model_basename))
+
+# Check operating system
+useMacOs = 0
+if sys.platform == 'darwin': #MacOS
+	useMacOs = 1
+
+if useMacOs == 0 :
+	run(session, 'save %s/%s.png width 1500 super 3' % (output_dir, model_basename))
 
 # Generate p_values
 
