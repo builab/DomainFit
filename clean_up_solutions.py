@@ -32,7 +32,11 @@ if __name__ == "__main__":
 	noRemain = int(sys.argv[2])
 	
 	print("Delete everything except the top {:d}".format(noRemain))
-	df = pd.read_csv(sol_dir + '/fit_logs_revised.csv', skiprows=range(1, noRemain))
+	if os.path.exists(sol_dir + '/fit_logs_revised.csv'):
+		df = pd.read_csv(sol_dir + '/fit_logs_revised.csv', skiprows=range(1, noRemain))
+	else
+		print("{:s} does not exist. Check again!")
+		exit(0)
 	delete_names = df['Domain'].tolist()
 	delete_file_names = [filename + suffix for filename in delete_names for suffix in ["_bestfit.pdb", "_pvalues.csv", ".csv"]]
 
