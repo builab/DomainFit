@@ -34,7 +34,7 @@ if __name__ == "__main__":
 	print("Delete everything except the top {:d}".format(noRemain))
 	if os.path.exists(sol_dir + '/fit_logs_revised.csv'):
 		df = pd.read_csv(sol_dir + '/fit_logs_revised.csv', skiprows=range(1, noRemain))
-	else
+	else:
 		print("{:s} does not exist. Check again!")
 		exit(0)
 	delete_names = df['Domain'].tolist()
