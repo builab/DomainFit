@@ -38,7 +38,7 @@ if __name__ == "__main__":
 		print("WARNING: {:s} does not exist. Check again!".format(sol_dir + '/fit_logs_revised.csv'))
 		exit(0)
 	delete_names = df['Domain'].tolist()
-	delete_file_names = [filename + suffix for filename in delete_names for suffix in ["_bestfit.pdb", "_pvalues.csv", ".csv"]]
+	delete_file_names = [filename + suffix for filename in delete_names for suffix in ["_bestfit.pdb", "_pvalues.csv", ".png", ".csv"]]
 
 	for filename in delete_file_names:
 		file_path = os.path.join(sol_dir, filename)
