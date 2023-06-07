@@ -31,7 +31,7 @@ if __name__ == "__main__":
 	sol_dir = sys.argv[1]
 	noRemain = int(sys.argv[2])
 	
-	print("Delete everything except the top {:d}".format(noRemain))
+	print("Delete everything from {:s} except the top {:d}".format(sol_dir, noRemain))
 	if os.path.exists(sol_dir + '/fit_logs_revised.csv'):
 		df = pd.read_csv(sol_dir + '/fit_logs_revised.csv', skiprows=range(1, noRemain))
 	else:
