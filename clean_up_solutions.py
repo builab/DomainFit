@@ -44,3 +44,5 @@ if __name__ == "__main__":
 		file_path = os.path.join(sol_dir, filename)
 		if os.path.exists(file_path):
 			os.remove(file_path)
+	
+	print("Done! Check if I delete anything wrong!")
