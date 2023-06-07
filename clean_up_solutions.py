@@ -41,6 +41,6 @@ if __name__ == "__main__":
     delete_file_names = [filename + suffix for filename in delete_names for suffix in ["_bestfit.pdb", "_pvalues.csv", ".csv"]]
 
     for filename in delete_file_names:
-        file_path = os.path.join(output_dir, filename)
+        file_path = os.path.join(sol_dir, filename)
         if os.path.exists(file_path):
             os.remove(file_path)
