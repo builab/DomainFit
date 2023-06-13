@@ -4,57 +4,53 @@
 """
 @Authors Max Tong & HB
 @Require ChimeraX
-Eliminate domain smaller than a minLength or larger than a maxLength
-save
+Script to write domain informations from output of process_predicted_model_all.py
+IMPORTANT: This script does not output empty file for the one is not parsed
 """
-from chimerax.core.commands import run
+import Bio
 import os.path
 import sys,os
+from Bio.PDB import PDBParser
+from Bio.PDB import PDBIO
+   
 
-input_pdb = sys.argv[1]
-output_dir = sys.argv[2]
+def write_domains(input_pdb, output):
+	parser=PDBParser(QUIET=True)
+	protein = parser.get_structure('Y', input_pdb)
+	log = open(output, "w")
 
-if len(sys.argv) < 3:
-	min_length = 50
-else:
-	min_length = int(sys.argv[3])
+	for chain in protein[0]:
+		#print ("Chain " + str(chain))
+		# Print first & last residues
+		first = last = next(chain.get_residues(), None)
+		for last in chain.get_residues():
+			pass
 
-if len(sys.argv) < 4:
-	max_length = 1000
-else:
-	max_length = int(sys.argv[4])
-
-model = run(session, 'open %s' % input_pdb)[0]
-
-model_basename = os.path.basename(input_pdb).replace('_domains.pdb','')
-
-print('Saving chains between ' + str(min_length) + ' and ' + str(max_length) + ' aa')
-
-log_file = output_dir + '/domain_logs.txt'
-log = open(log_file, "a")
-
-# Check operating system
-useMacOs = 0
-if sys.platform == 'darwin': #MacOS
-	useMacOs = 1
+	log.write("D{:s}\t{:d}-{:d}\n".format(chain.get_id(), first.get_id()[1], last.get_id()[1]))	
+	log.close()		
 	
-for chainNo in range(model.num_chains):
-	noResidues = int(model.chains[chainNo].num_residues)
-	print('Chain ' + model.chains[chainNo].chain_id + ' has ' + str(model.chains[chainNo].num_residues))
-	log.write('%s,%s,%d\n' % (model_basename, model.chains[chainNo].chain_id, noResidues))
-	if noResidues < min_length or noResidues > max_length:
-		print('--> Skip due to length')
-		continue		
-	print('Saving chain ' + model.chains[chainNo].chain_id)
-	run(session, 'select /%s' % model.chains[chainNo].chain_id)
-	output_pdb = output_dir + '/' + model_basename +  '_domain' + str(chainNo) + '.pdb'
-	run(session, 'save %s selectedOnly true models #%d' % (output_pdb, 1))
-	if useMacOs == 0 : #MacOS
-		output_png = output_dir + '/' + model_basename +  '_domain' + str(chainNo) + '.png'
-		run(session, 'save %s width 1000 super 3' % output_png)
+def print_usage ():
+	print("Usage: python write_domain_info.py inputDir outputDir")
+	sys.exit()
+
+if __name__ == "__main__":
+	if len(sys.argv) < 2 :
+		print_usage()
+        
+	input_dir = sys.argv[1]
+	output_dir = sys.argv[2]
 	
+	try:
+		os.makedirs(output_dir, exist_ok = True)
+	except OSError as error:
+		print("Output dir exists")
 
-# runscript save_domain_single.py /storage2/Thibault/Max/test_parsing Q22DM0_processed.pdb
-#/storage2/Thibault/Max/test_parsing/output 50 1000
 
-log.close()
+	for pdb in os.listdir(input_dir):
+		if pdb.endswith("domains.pdb"):  
+			print("Processing " + pdb)
+			protein_basename = os.path.basename(pdb).replace('_domains.pdb','')
+			output = output_dir + '/' + protein_basename + '.domains'
+			write_domains(input_dir + "/" + pdb, output)
+    
+
