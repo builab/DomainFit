@@ -25,8 +25,8 @@ def write_domains(input_pdb, output):
 		first = last = next(chain.get_residues(), None)
 		for last in chain.get_residues():
 			pass
-
-	log.write("D{:s}\t{:d}-{:d}\n".format(chain.get_id(), first.get_id()[1], last.get_id()[1]))	
+		log.write("D{:s}\t{:d}-{:d}\n".format(chain.get_id(), first.get_id()[1], last.get_id()[1]))	
+	
 	log.close()		
 	
 def print_usage ():

@@ -5,6 +5,7 @@
 @Authors Max Tong & HB
 @Require ChimeraX
 2023/06/13 Accomodate both pdb & cif
+Right now, the script assumes .domains always exist, if not make the .domains = entire molecule?
 """
 
 import sys,os,time
