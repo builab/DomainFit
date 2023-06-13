@@ -14,24 +14,24 @@ import subprocess, multiprocessing
 import pandas as pd
 
 def execute(cmd):
-    print(f'start {cmd}', datetime.now())
-    return subprocess.call(cmd,shell=True)
+	print(f'start {cmd}', datetime.now())
+	return subprocess.call(cmd,shell=True)
 
 def print_usage ():
-    print("usage: python save_domain_all_using_domain_info.py inputDirPDB inputDirDomainInfo outputDir minLength maxLength noProcessor")
-    sys.exit()
+	print("usage: python save_domain_all_using_domain_info.py inputDirPDB inputDirDomainInfo outputDir minLength maxLength noProcessor")
+	sys.exit()
 #print(len(sys.argv))
 
 if __name__ == "__main__":
 
 	if len(sys.argv) < 2 :
-    	print_usage()
+		print_usage()
 	else:
-    	logs=[]
-    	input_dir1 = sys.argv[1] # PDB
-    	input_dir2 = sys.argv[2] # Domain info
-    	output_dir = sys.argv[3]
-    
+		logs=[]
+		input_dir1 = sys.argv[1] # PDB
+		input_dir2 = sys.argv[2] # Domain info
+		output_dir = sys.argv[3]
+	
 	threads = 10
 
 	if len(sys.argv) < 4:
@@ -67,15 +67,15 @@ if __name__ == "__main__":
 	list = os.listdir(input_dir1)
 	cmds=[]
 	for cif in os.listdir(input_dir1):
-    	if cif.endswith((".cif", ".pdb")):
-        	# Add them to the command list
-        	uniprotID = cif[:-4]
-            if useMacOs == 1:
-                cmds.append(f'/Applications/ChimeraX-1.5.app/Contents/MacOS/ChimeraX --nogui --offscreen --cmd \"runscript {script_dir}/save_domain_single_from_info.py {input_dir1}/{cif} {input_dir2}/{uniprotID}.domains {output_dir} {min_length} {max_length}" --exit')
-            else:
-            	cmds.append(f'chimerax --nogui --offscreen --cmd \"runscript {script_dir}/save_domain_single_from_info.py {input_dir1}/{cif} {input_dir2}/{uniprotID}.domains {output_dir} {min_length} {max_length}" --exit')
+		if cif.endswith((".cif", ".pdb")):
+			# Add them to the command list
+			uniprotID = cif[:-4]
+			if useMacOs == 1:
+				cmds.append(f'/Applications/ChimeraX-1.5.app/Contents/MacOS/ChimeraX --nogui --offscreen --cmd \"runscript {script_dir}/save_domain_single_from_info.py {input_dir1}/{cif} {input_dir2}/{uniprotID}.domains {output_dir} {min_length} {max_length}" --exit')
+			else:
+				cmds.append(f'chimerax --nogui --offscreen --cmd \"runscript {script_dir}/save_domain_single_from_info.py {input_dir1}/{cif} {input_dir2}/{uniprotID}.domains {output_dir} {min_length} {max_length}" --exit')
 
 
 
 	with multiprocessing.Pool(processes=threads) as pool:
-    	results = pool.map(execute, cmds)
+		results = pool.map(execute, cmds)
