@@ -19,6 +19,7 @@
 # Submit columns --> Submits all of the selected columns to be used in processing the list
 
 # TODO: Give an option as to whether to prune the list based on Abundance Thresholds or Not
+# TODO: Make a generalize solution (csv )
 
 from tkinter import messagebox
 import pandas as pd
