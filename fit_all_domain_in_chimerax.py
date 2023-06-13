@@ -4,6 +4,7 @@
 """
 @Authors Max Tong & HB
 @Require ChimeraX 1.5 with proper excecutable
+Updated to use Pvalue for sorting now
 """
 # Usage
 # python fit_all_domain_in_chimerax pdb_dir output_dir input_map map_level resolution search numProc
@@ -80,7 +81,7 @@ if __name__ == "__main__":
     print(df)
     #for col in df.columns:
         #print(col)
-    df.sort_values(['Corr_mean', 'Diff'], ascending=[False, False], inplace=True)
+    df.sort_values(['Pvalue', 'Corr_mean'], ascending=[False, False], inplace=True)
     # df.sort_values(by = "Diff", inplace=True, ascending=False)
 
     #print(df)
