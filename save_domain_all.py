@@ -51,7 +51,7 @@ if __name__ == "__main__":
         max_length = sys.argv[4]
     
     if len(sys.argv) == 6:
-        threads = sys.argv[5]
+        threads = int(sys.argv[5])
     
     print('Saving chains between ' + min_length + ' and ' + max_length + ' aa')
 

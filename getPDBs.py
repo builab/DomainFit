@@ -44,7 +44,6 @@ else:
     upperAbundanceThreshold = sys.argv[3]
     options = sys.argv[4]
 
-
 class ColumnSelectorUI:
     def __init__(self, master):
         self.master = master
