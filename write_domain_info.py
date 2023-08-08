@@ -40,10 +40,7 @@ if __name__ == "__main__":
 	input_dir = sys.argv[1]
 	output_dir = sys.argv[2]
 	
-	try:
-		os.makedirs(output_dir, exist_ok = True)
-	except OSError as error:
-		print("Output dir exists")
+	os.makedirs(output_dir, exist_ok = True)
 
 
 	for pdb in os.listdir(input_dir):
@@ -53,4 +50,3 @@ if __name__ == "__main__":
 			output = output_dir + '/' + protein_basename + '.domains'
 			write_domains(input_dir + "/" + pdb, output)
     
-

@@ -4,7 +4,6 @@
 """
 @Authors Max Tong & HB
 Reads all the *.domains in the domain_info_dir and plot histogram of domain residues number
-NOT TESTED AT ALL
 """
 
 from scipy.stats import norm
@@ -62,9 +61,9 @@ for file in os.listdir(domain_info_dir):
 n, bins, patches = plt.hist(x=d, bins=range(min(d), max(d) + 5, 5), color='#0504aa',
                             alpha=0.7, rwidth=0.85)
 plt.grid(axis='y', alpha=0.75)
-plt.xlabel('noRes')
-plt.ylabel('Count (noDomains)')
-plt.title('Domain distribution')
+plt.xlabel('Number of residues')
+plt.ylabel('Number of Domains')
+plt.title('Histogram of domain size')
 # plt.text(23, 45, r'$\mu=15, b=3$')
 maxfreq = n.max()
 # Set a clean upper y-axis limit.
