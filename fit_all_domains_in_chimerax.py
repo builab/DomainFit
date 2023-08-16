@@ -14,6 +14,7 @@ Updated to use Pvalue for sorting now
 # Write a file for the best fit correlation for each domain as a summary
 
 import sys,os,time
+from shutil import which
 from datetime import datetime
 script_dir=os.path.dirname(os.path.realpath(__file__))
 import subprocess, multiprocessing
@@ -57,7 +58,7 @@ if __name__ == "__main__":
 	if useMacOs == 1:
 		chimerax_path = "/Applications/ChimeraX-1.5.app/Contents/MacOS/ChimeraX"
 		
-	if os.path.exists(chimerax_path) == 0:
+	if os.path.exists(chimerax_path) == 0 & which(chimerax_path) is None:
 		print(f"The file '{chimerax_path}' does not exist.")
 		print("Modify the script for the path of ChimeraX version from 1.5 and above.")
 		exit(0)
