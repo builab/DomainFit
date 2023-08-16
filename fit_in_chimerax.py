@@ -17,15 +17,6 @@ import subprocess
 script_dir=os.path.dirname(os.path.realpath(__file__))
 
 
-""" Retrieve protein sequence length"""
-def get_PDB_len(input_pdb):
-	parser=PDBParser(QUIET=True)
-	protein = parser.get_structure('Y', input_pdb)	
-	for last in protein[0].get_residues():
-		pass
-	return last.get_id()[1]
-
-
 input_model = sys.argv[1]
 output_dir = sys.argv[2]
 input_map = sys.argv[3]
@@ -71,9 +62,14 @@ for f in fits:
 		best_fit = [f]	
 
 # Determine best fits
-print("cur best: ", fits[0].correlation())
-print("second best: ", fits[1].correlation())
-print("worst best: ", fits[len(fits)-1].correlation())
+# Error to catch here
+try:
+	print("cur best: ", fits[0].correlation())
+	print("second best: ", fits[1].correlation())
+	print("worst best: ", fits[len(fits)-1].correlation())
+except IndexError:
+	print(f'Something wrong with {input_model}')
+	exit(0)
 
 best_corr = fits[0].correlation()
 second_best_corr = fits[1].correlation()
@@ -119,14 +115,10 @@ corr_mean = df.loc[:, df.columns[26]][0]
 pvalue = df.loc[:, df.columns[38]][0]
 # print(df.loc[:, df.columns[0]])
 
-# Calculate the number of residues in the PDB
-no_residues = 0
-
-
 # Log best results into log_file
 log_file = output_dir + '/fit_logs.txt'
 log = open(log_file, "a")
-log.write('%s,%d,%0.4f,%0.4f,%0.4f,%0.4f,%0.4f,%s,%0.4f,%0.4f\n' % (model_basename,len(model.chains[0].existing_residues), best_corr, second_best_corr, difference, worst_best_corr, range, fit_no, corr_mean, pvalue))
+log.write('%s,%d,%0.4f,%0.4f,%0.4f,%0.4f,%0.4f,%s,%0.4f,%0.4f\n' % (model_basename, model.chains[0].num_existing_residues, best_corr, second_best_corr, difference, worst_best_corr, range, fit_no, corr_mean, pvalue))
 log.close()
 
 # runscript /storage2/Thibault/Max/ProteinAnalysis/fit_in_chimerax.py /storage2/Thibault/Max/test_parsing /storage2/Thibault/Max/test_parsing C1C2_MAP_only_erase.mrc Q22DM0.pdb
