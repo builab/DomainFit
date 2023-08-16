@@ -21,10 +21,11 @@ def print_usage ():
     print("usage: plot_domain_histogram.py domain_info_dir" )
 
 # Ensures that there are 1 arguments
-if len(sys.argv) < 1:
+if len(sys.argv) < 2:
     print_usage()
 else:
     domain_info_dir = sys.argv[1]
+    
 
 # d is the array contains the number of residues per domain
 d = []
@@ -58,7 +59,7 @@ for file in os.listdir(domain_info_dir):
 #print(d)
 
 # An "interface" to matplotlib.axes.Axes.hist() method
-n, bins, patches = plt.hist(x=d, bins=range(min(d), max(d) + 5, 5), color='#0504aa',
+n, bins, patches = plt.hist(x=d, bins=range(min(d), max(d) + 20, 20), color='#0504aa',
                             alpha=0.7, rwidth=0.85)
 plt.grid(axis='y', alpha=0.75)
 plt.xlabel('Number of residues')
