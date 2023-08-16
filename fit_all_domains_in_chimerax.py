@@ -58,7 +58,7 @@ if __name__ == "__main__":
 	if useMacOs == 1:
 		chimerax_path = "/Applications/ChimeraX-1.5.app/Contents/MacOS/ChimeraX"
 		
-	if os.path.exists(chimerax_path) == 0 & which(chimerax_path) is None:
+	if os.path.exists(chimerax_path) == 0 and which(chimerax_path) is None:
 		print(f"The file '{chimerax_path}' does not exist.")
 		print("Modify the script for the path of ChimeraX version from 1.5 and above.")
 		exit(0)
