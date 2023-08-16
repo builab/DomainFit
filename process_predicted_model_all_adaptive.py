@@ -6,6 +6,7 @@
 @Require phenix 1.20
 @v0.2 In this version, you have no flexibility in choosing option. the maximum_domains = no_of_AA/100
 assuming ~100AA per domain
+TO DO: remove *.remainder_seq in source PDB folder
 """
 import sys,os,time,platform,math
 import Bio
@@ -54,6 +55,7 @@ def get_PDB_len(input_pdb):
 
 if __name__ == "__main__":
 	# Default option seems to work very well
+	# Adaptive doesn't seem to do much
 	default_options = "split_model_by_compact_regions = True"
 
 	if len(sys.argv) < 4 :
