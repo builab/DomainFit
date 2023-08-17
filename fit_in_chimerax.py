@@ -62,7 +62,7 @@ for f in fits:
 		best_fit = [f]	
 
 # Determine best fits
-# Error to catch here
+# Error to catch here to avoid empty solutions
 try:
 	print("cur best: ", fits[0].correlation())
 	print("second best: ", fits[1].correlation())
