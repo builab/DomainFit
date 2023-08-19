@@ -30,14 +30,17 @@ def write_domains(input_pdb, output):
 	parser=PDBParser(QUIET=True)
 	protein = parser.get_structure('Y', input_pdb)
 	log = open(output, "w")
-
+	
+	chain_id = 1
 	for chain in protein[0]:
 		#print ("Chain " + str(chain))
 		# Print first & last residues
 		first = last = next(chain.get_residues(), None)
 		for last in chain.get_residues():
 			pass
-		log.write("D{:s}\t{:d}-{:d}\n".format(chain.get_id(), first.get_id()[1], last.get_id()[1]))	
+		#log.write("D{:s}\t{:d}-{:d}\n".format(chain.get_id(), first.get_id()[1], last.get_id()[1]))	
+		log.write("D{:d}\t{:d}-{:d}\n".format(chain_id, first.get_id()[1], last.get_id()[1]))
+		chain_id += 1	
 	
 	log.close()	
 
