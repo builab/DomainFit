@@ -33,7 +33,7 @@ if __name__ == "__main__":
 	
 	print("Delete everything from {:s} except the top {:d}".format(sol_dir, noRemain))
 	if os.path.exists(sol_dir + '/fit_logs_revised.csv'):
-		df = pd.read_csv(sol_dir + '/fit_logs_revised.csv', skiprows=range(1, noRemain))
+		df = pd.read_csv(sol_dir + '/fit_logs_revised.csv', skiprows=range(1, noRemain+1))
 	else:
 		print("WARNING: {:s} does not exist. Check again!".format(sol_dir + '/fit_logs_revised.csv'))
 		exit(0)
@@ -45,4 +45,4 @@ if __name__ == "__main__":
 		if os.path.exists(file_path):
 			os.remove(file_path)
 	
-	print("Done! Check if I delete anything wrong!")
+	print("Done!")
