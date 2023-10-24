@@ -70,7 +70,7 @@ if __name__ == "__main__":
 	log_file = output_dir + '/fit_logs.txt'
 	log = open(log_file, "w")
 	# log.write("#{}\n".format(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")))
-	log.write("\nDomain, NoRes, Best_Corr, Second_Best_Corr, Diff, Worst_Corr, Range, P_val_best_fit, Corr_mean, Pvalue\n")
+	log.write("\nDomain, NoRes, Best_Corr, Second_Best_Corr, Diff, Worst_Corr, Range, P_val_best_fit, Corr_mean, Eta0, Pvalue\n")
 	# log.write("\n")
 	log.close()
 
