@@ -1,4 +1,5 @@
 #Authors: Bernd Klaus and Alessandro Ori, modified by Jan Kosinski @ EMBL
+#Added eta0 by Huy Bui @ McGill Uni
 
 #Running:
 #Rscript <path>/pval_from_solutions.R
@@ -54,7 +55,7 @@ if (score == 'overlap') {
 }
 
 
-hist(hit_data_sub$score_z, freq = FALSE )
+hist(hit_data_sub$score_z, freq = FALSE, breaks=100)
 ## shifted or scaled!
 ## but "outliers" are clearly visibile!
 # sort(hit_data_sub$score_z, decreasing = TRUE)[1:10]
@@ -63,11 +64,12 @@ hist(hit_data_sub$score_z, freq = FALSE )
 
 ## try a simple shift
 hit_data_sub$score_z_c <- hit_data_sub$score_z-mean(hit_data_sub$score_z)
-hist(hit_data_sub$score_z_c)
+hist(hit_data_sub$score_z_c, breaks=100)
 
 fdrtool_res_shift <- fdrtool(hit_data_sub$score_z_c , statistic =  "normal", cutoff.method="pct0", pct0=0.95)
 
 hit_data_sub$pvalues <- fdrtool_res_shift$pval
+hit_data_sub$eta0 <- fdrtool_res_shift$param[3]
 hit_data_sub$pvalues_one_tailed <- ifelse(hit_data_sub$score_z_c > 0, hit_data_sub$pvalues/2, 1-hit_data_sub$pvalues/2)
 hit_data_sub$BH_adjusted_pvalues <- p.adjust(fdrtool_res_shift$pval, method = "BH")
 hit_data_sub$BH_adjusted_pvalues_one_tailed <- ifelse(hit_data_sub$score_z_c > 0, hit_data_sub$BH_adjusted_pvalues/2, 1-hit_data_sub$BH_adjusted_pvalues/2)
