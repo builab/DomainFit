@@ -106,7 +106,7 @@ if __name__ == "__main__":
 		if 1 in set(row):
 			plt.plot(range(1, len(row)), row[1:], marker='o', markerfacecolor="white", linewidth=4, label=row['Protein'])
 		else:
-			plt.plot(range(1, len(row)), row[1:], marker='o', markerfacecolor="white", linewidth=2, label=row['Protein'], alpha=0.5)
+			plt.plot(range(1, len(row)), row[1:], marker='o', markerfacecolor="white", linewidth=2, label=row['Protein'], alpha=0.4)
 
 	
 	plt.xlabel('Density Number')
