@@ -2,7 +2,7 @@
 # # -*- coding: utf-8 -*-
 
 """
-@Authors Max Tong & HB
+@Authors Max Tong & Huy Bui
 @Require ChimeraX
 Script to write domain informations from output of process_predicted_model_all.py
 IMPORTANT: This script does not output empty file for the one is not parsed

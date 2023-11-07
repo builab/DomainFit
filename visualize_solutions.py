@@ -2,7 +2,6 @@
 # # -*- coding: utf-8 -*-
 
 """
-Need size filtering to avoid small proteins
 @Authors Huy Bui 
 """
 # Usage

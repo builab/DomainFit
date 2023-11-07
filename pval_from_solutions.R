@@ -1,5 +1,6 @@
 #Authors: Bernd Klaus and Alessandro Ori, modified by Jan Kosinski @ EMBL
-#Added eta0 by Huy Bui @ McGill Uni
+#Added eta0 by Huy Bui
+#TODO perhaps add args[3] to output individual R plot, which is disabled by default
 
 #Running:
 #Rscript <path>/pval_from_solutions.R

@@ -3,8 +3,7 @@
 
 """
 @Authors Max Tong & HB
-@Require ChimeraX 1.5 with proper excecutable
-Updated to use Pvalue for sorting now
+@Require ChimeraX 1.5 and up with proper excecutable
 """
 # Usage
 # python fit_all_domain_in_chimerax pdb_dir output_dir input_map map_level resolution search numProc

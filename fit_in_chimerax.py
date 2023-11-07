@@ -2,8 +2,7 @@
 # # -*- coding: utf-8 -*-
 
 """
-@Authors Max Tong & HB
-# Better use re.sub for replace .pdb or .cif
+@Authors Max Tong & Huy Bui
 """
 
 # Python open a map

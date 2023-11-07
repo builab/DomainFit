@@ -5,7 +5,7 @@ Goal: Provided a database of proteins and an isolated electron density, find the
 
 ## Installation
 
-    $ git clone https://github.com/builab/DomFit.git
+    $ git clone https://github.com/builab/DomainFit.git
 
 ### Software and Package Requirements
 1. **Phenix** v1.20.1 or higher
@@ -13,6 +13,8 @@ Goal: Provided a database of proteins and an isolated electron density, find the
 2. **Chimerax** v1.4 or higher
         chimerax.fitmap
 3. **Python** 3 or higher
+		BioPhython
+		pandas
 4. **Rscript** 3.6.3 or higher  
         fdrtool
         psych

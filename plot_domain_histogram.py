@@ -2,7 +2,7 @@
 # # -*- coding: utf-8 -*-
 
 """
-@Authors Max Tong & HB
+@Authors Max Tong & Huy Bui
 Reads all the *.domains in the domain_info_dir and plot histogram of domain residues number
 """
 
