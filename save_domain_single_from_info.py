@@ -2,12 +2,9 @@
 # # -*- coding: utf-8 -*-
 
 """
-@Authors Max Tong & HB
+@Authors Max Tong & Huy Bui
 @Require ChimeraX
-2023/06/13
-Eliminate domain smaller than a minLength or larger than a maxLength
-Take care of both pdb & cif
-If the .domains not exist, save the entire file
+Note: if the .domains not exist, save the entire file
 """
 from chimerax.core.commands import run
 import os.path
