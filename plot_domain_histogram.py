@@ -19,6 +19,8 @@ script_dir=os.path.dirname(os.path.realpath(__file__))
 # Syntax
 def print_usage ():
     print("usage: plot_domain_histogram.py domain_info_dir" )
+    print("usage: plot_domain_histogram.py domain_info" )
+    exit(0)
 
 # Ensures that there are 1 arguments
 if len(sys.argv) < 2:
@@ -61,8 +63,10 @@ for file in os.listdir(domain_info_dir):
 # An "interface" to matplotlib.axes.Axes.hist() method
 n, bins, patches = plt.hist(x=d, bins=range(min(d), max(d) + 20, 20), color='#0504aa',
                             alpha=0.7, rwidth=0.85)
+print(n)
+print(bins)
 plt.grid(axis='y', alpha=0.75)
-plt.xlabel('Number of residues')
+plt.xlabel('Domain size (aa)')
 plt.ylabel('Number of Domains')
 plt.title('Histogram of domain size')
 # plt.text(23, 45, r'$\mu=15, b=3$')
@@ -71,6 +75,6 @@ maxfreq = n.max()
 y = norm.pdf( bins, mu, sigma)
 y = y*n.sum()*10
 # plt.plot(bins, y, 'r--', linewidth=2)
-plt.ylim(ymax=np.ceil(maxfreq / 10) * 10 if maxfreq % 10 else maxfreq + 10)
-
+#plt.ylim(ymax=np.ceil(maxfreq / 10) * 10 if maxfreq % 10 else maxfreq + 10)
+#plt.xlim(0,800)
 plt.show()
