@@ -5,7 +5,6 @@
 @Authors Jerry Gao & Huy Bui
 """
 # Usage
-# python load_tophits_in_chimerax.py solutions_dir number_of_top_candidate_retained
 # Operate from the main folder
 # Load the top hits in ChimeraX
 
@@ -14,7 +13,7 @@ import pandas as pd
 
 def print_usage ():
 	print("usage: python load_tophits_in_chimerax.py density solutions_dir number_of_top_hit minsize")
-	print("eg: ppython load_tophits_in_chimerax.py density.mrc solutions_dir 5 60")
+	print("eg: python load_tophits_in_chimerax.py density.mrc solutions_dir 5 60")
 	sys.exit()
 	
 def filter_csv(fitcsv, minsize):
