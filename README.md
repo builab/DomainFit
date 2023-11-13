@@ -13,8 +13,8 @@ Goal: Provided a database of proteins and an isolated electron density, find the
 2. **Chimerax** v1.4 or higher
         chimerax.fitmap
 3. **Python** 3 or higher
-		BioPhython
-		pandas
+	BioPhython
+	pandas
 4. **Rscript** 3.6.3 or higher  
         fdrtool
         psych
