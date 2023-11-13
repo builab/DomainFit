@@ -51,7 +51,7 @@ Fetching AlphaFold PDBs from a list of UniprotID
 > Input: A list of UniprotIDs (1 per line) in text format (.txt or .csv)
 > Output: A download directory containing pdbs downloading from alphafold.ebi.ac.uk
 
-	python getPDBs.py --ilist list_proteins.csv --odir pdb_files --ignore_existing
+	python getAlphaFoldPDBs.py --ilist list_proteins.csv --odir pdb_files --ignore_existing
 
 ### process_predicted_models.py or process_predicted_models_adaptive.py
 Generating domain pdbs: Parse automatically using phenix.process_predicted_model, can use default parameters or options.
