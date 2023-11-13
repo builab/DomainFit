@@ -9,15 +9,23 @@ Goal: Provided a database of proteins and an isolated electron density, find the
 
 ### Software and Package Requirements
 1. **Phenix** v1.20.1 or higher
+   
         phenix.process_predicted_model
+   
 2. **Chimerax** v1.4 or higher
+   
         chimerax.fitmap
+
 3. **Python** 3 or higher
-	BioPhython
-	pandas
-4. **Rscript** 3.6.3 or higher  
+	
+        BioPhython
+        pandas
+
+6. **Rscript** 3.6.3 or higher  
+
         fdrtool
         psych
+   
 ## Workflow
 
 Scripts:
