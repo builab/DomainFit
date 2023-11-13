@@ -29,7 +29,7 @@ Goal: Provided a database of proteins and an isolated electron density, find the
 ## Workflow
 
 Scripts:
-- getPDBs.py
+- getAlphaFoldPDBs.py
 - process_predicted_models.py
 - save_domains_from_info.py
     - save_domain_single_from_info.py
@@ -38,15 +38,17 @@ Scripts:
     - pval_from_solutions.R
     
 Other utility scripts:
-- getPAEs.py
+- getAlphaFoldPAEs.py
 - plot_domain_histogram.py
+- filter_solution_list.py
 - clean_up_solutions.py
 - write_domain_info.py
+- load_tophits_in_chimerax.py
 
 ### getAlphaFoldPDBs.py
-Fetching AlphaFold PDBs from a list of Uniprot ID
+Fetching AlphaFold PDBs from a list of UniprotID
 
-> Input: A list of Uniprot ID (1 per line) in text format (.txt or .csv)
+> Input: A list of UniprotIDs (1 per line) in text format (.txt or .csv)
 > Output: A download directory containing pdbs downloading from alphafold.ebi.ac.uk
 
 	python getPDBs.py --ilist list_proteins.csv --odir pdb_files --ignore_existing
