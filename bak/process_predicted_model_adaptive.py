@@ -4,9 +4,11 @@
 """
 @Authors Max Tong & HB
 @Require phenix 1.20
-@v0.2 Update with multiprocessing and phenix lddt option
+@v0.2 In this version, you have no flexibility in choosing option. the maximum_domains = no_of_AA/100
+assuming ~100AA per domain
+TO DO: remove *.remainder_seq in source PDB folder
 """
-import sys,os,time,platform
+import sys,os,time,platform,math
 import Bio
 import os.path,re
 from Bio.PDB import PDBParser
@@ -18,14 +20,15 @@ script_dir=os.path.dirname(os.path.realpath(__file__))
 
 
 def print_usage ():
-	print("usage: python process_predicted_models.py <inputDir> <outputDir> <noProc> options")
-	print("eg: python process_predicted_models.py input domains 10 split_model_by_compact_regions=True")
+	print("usage: python process_predicted_model_all_adaptive.py <inputDir> <outputDir> <noProc> options")
+	print("eg: python process_predicted_model_all_adaptive.py input domains 10 maximum_rmsd=.8")
 	sys.exit()
 	
 def execute(cmd):
 	print(f'start {cmd}', datetime.now())
 	return subprocess.call(cmd,shell=True)
-	
+
+""" Write domain info"""	
 def write_domains(input_pdb, output):
 	parser=PDBParser(QUIET=True)
 	protein = parser.get_structure('Y', input_pdb)
@@ -43,10 +46,20 @@ def write_domains(input_pdb, output):
 		chain_id += 1	
 	
 	log.close()	
+	
+""" Retrieve protein sequence length"""
+def get_PDB_len(input_pdb):
+	parser=PDBParser(QUIET=True)
+	protein = parser.get_structure('Y', input_pdb)	
+	for last in protein[0].get_residues():
+		pass
+	return last.get_id()[1]
+
 
 if __name__ == "__main__":
 	# Default option seems to work very well
-	default_options = "split_model_by_compact_regions=True"
+	# Adaptive doesn't seem to do much
+	default_options = "split_model_by_compact_regions = True"
 
 	if len(sys.argv) < 4 :
   		print_usage()
@@ -65,7 +78,7 @@ if __name__ == "__main__":
 	os.makedirs(output_dir, exist_ok=True)
 
 
-	print(f'Process_predicted_models options: {options}')
+	print(f'Process_predicted_model options: {options}')
 
 	cmds=[]
 	for pdb in os.listdir(input_dir):
@@ -75,11 +88,22 @@ if __name__ == "__main__":
 			ext = ".cif"
 		else:
 			continue
+		
+		# Adaptive adjust maximum_domains
+		no_residues = get_PDB_len(os.path.join(input_dir, pdb))
+		no_domains = math.ceil(no_residues/100)
+		print(f'{pdb} has {no_residues} residues')
+		
+		if "maximum_domains" not in options:
+			adaptive_options = options + " maximum_domains=" + '{:d}'.format(no_domains)
+			print(f'Running with adaptive option of {no_domains}')
+		else:
+			adaptive_options = options
 			
 		# Add them to the command list
 		out_pdb = re.sub("{}$".format(ext), '_domains', pdb)			
-		cmds.append(f'phenix.process_predicted_model {input_dir}/{pdb} processed_model_prefix={output_dir}/{out_pdb} {options}')
-		
+		cmds.append(f'phenix.process_predicted_model {input_dir}/{pdb} processed_model_prefix={output_dir}/{out_pdb} {adaptive_options}')
+	
 	# Execute command list
 	count = threads
 	with multiprocessing.Pool(processes=count) as pool:
