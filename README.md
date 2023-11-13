@@ -35,7 +35,7 @@ Other utility scripts:
 - clean_up_solutions.py
 - write_domain_info.py
 
-### getPDBs.py
+### getAlphaFoldPDBs.py
 Fetching AlphaFold PDBs from a list of Uniprot ID
 
 > Input: A list of Uniprot ID (1 per line) in text format (.txt or .csv)
