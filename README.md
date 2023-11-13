@@ -18,7 +18,7 @@ Goal: Provided a database of proteins and an isolated electron density, find the
 
 3. **Python** 3 or higher
 	
-        BioPhython
+        BioPython
         pandas
 
 6. **Rscript** 3.6.3 or higher  
