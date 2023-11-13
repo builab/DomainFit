@@ -88,7 +88,7 @@ Fetching AlphaFold PDBs from a list of UniprotID
 > Input: A list of UniprotIDs (1 per line) in text format (.txt or .csv)
 > Output: A download directory containing pdbs downloading from alphafold.ebi.ac.uk
 
-	python getAlphaFoldPDBs.py --ilist list_proteins.csv --odir pdb_files --ignore_existing
+	getAlphaFoldPDBs.py --ilist list_proteins.csv --odir pdb_files --ignore_existing
 
 ### process_predicted_models.py or process_predicted_models_adaptive.py
 Generating domain pdbs: Parse automatically using phenix.process_predicted_model, can use default parameters or options.
@@ -96,15 +96,15 @@ Generating domain pdbs: Parse automatically using phenix.process_predicted_model
 > Input: Alphafold pdbs
 > Output: Domain-parsed pdbs (*domains.pdb) and domain information files (*.domains)
 
-	python process_predicted_models.py pdb_files domains nocpu
+	process_predicted_models.py pdb_files domains nocpu
 
 ### save_domains_from_info.py
-Saving domain-separated pdbs using info from previous step: Parse through domain info and save domains into individual pdbs. Additional screenshots are taken of each domain.
+Saving domain-separated pdbs using info from the previous step: Parse through domain info and save domains into individual pdbs. Additional screenshots are taken of each domain.
 
 > Input: Domain-parsed pdbs, domain_info files folder
 > Output: Domain-separated pdbs + pngs
 
-	python save_domains_from_info.py pdb_files domains single_domains minResidueNo maxResidueNo nocpu
+	save_domains_from_info.py pdb_files domains single_domains minResidueNo maxResidueNo nocpu
 
 
 ### fit_domains_in_chimerax.py
@@ -113,7 +113,7 @@ Fitting using ChimeraX: Take each domain and fit it into the density automatical
 > Input: Domain-separated pdbs + protein density
 > Output: Solutions with Best-hit pdbs + pngs + csvs
 
-	python fit_domains_in_chimerax.py inputDir outputDir inputMap mapLevel resolution searchNo noProcessor
+	fit_domains_in_chimerax.py inputDir outputDir inputMap mapLevel resolution searchNo noProcessor
 
 
 
@@ -126,7 +126,7 @@ Clean up the solution after having a look at it
 > Input: Best-hit pdbs + pngs + csvs
 > Output: Clean up the solution folder keeping only top hits
 
-	python clean_up_solutions.py solution_dir numberTopHitsRetained
+	clean_up_solutions.py solution_dir numberTopHitsRetained
 
 
 ### plot_domain_histogram.py
@@ -135,7 +135,7 @@ Visualizing domain features: Generates histograms based on the number of residue
 > Input: **\<processed>** directory
 > Output: histogram
 
-	python plot_domain_histogram.py domain_info_dir
+	plot_domain_histogram.py domain_info_dir
 
 
 #### load_tophits_in_chimerax.py
@@ -144,7 +144,7 @@ Generate a .cxc file to load the top hits for visualization in ChimeraX.
 > Input: density + solution_dir
 > Output: .cxc file to open in ChimeraX
 
-	python load_tophits_in_chimerax.py density solutions_dir number_of_top_hit minsize
+	load_tophits_in_chimerax.py density solutions_dir number_of_top_hit minsize
 
 
 #### filter_solution_list.py
@@ -153,7 +153,15 @@ Generate a new .csv file with a minimum size filtering
 > Input: solution_dir/fit_log_revised.csv file
 > Output: filtered csv file
 
-	python filter_solution_list.py solutions_list minsize
+	filter_solution_list.py solutions_list minsize
+
+ ### visualize_solutions.py
+ Generate a visual of top solutions from many searches
+
+ > Input: solution directories of many density, a .txt file containing the list of those directories
+ > Output: eps file showing
+
+	visualize_solutions.py solutions_csv_list cutoff_rank min_size outputPlot
 
 
 ### getAlphaFoldPAEs.py
@@ -162,8 +170,5 @@ Fetching AlphaFold predicted alignment error from a list of Uniprot ID. Not used
 > Input: A list of Uniprot ID (1 per line) in text format (.txt or .csv)
 > Output: A download directory containing PAEs downloading from alphafold.ebi.ac.uk
 
-### write_domain_information.py
-Writing domain information (should be done also during process_predicted_models.py)
-
-> Input: **\<processed>** directory
-> Output: domain information files (*.domains) using ECOD format 
+	getAlphaFoldPAEs.py --ilist list_proteins.csv --odir pdb_files --ignore_existing
+ 
