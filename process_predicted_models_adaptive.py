@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # # -*- coding: utf-8 -*-
 
 """
@@ -20,8 +20,8 @@ script_dir=os.path.dirname(os.path.realpath(__file__))
 
 
 def print_usage ():
-	print("usage: python process_predicted_model_all_adaptive.py <inputDir> <outputDir> <noProc> options")
-	print("eg: python process_predicted_model_all_adaptive.py input domains 10 maximum_rmsd=.8")
+	print("usage: process_predicted_models_adaptive.py <inputDir> <outputDir> <noProc> options")
+	print("eg: process_predicted_models_adaptive.py input domains 10 maximum_rmsd=.8")
 	sys.exit()
 	
 def execute(cmd):

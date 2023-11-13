@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # # -*- coding: utf-8 -*-
 
 """
@@ -13,12 +13,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def print_usage ():
-	print("usage: python visualize_solutions.py solutions_csv_list cutoff_rank min_size outputPlot")
+	print("usage: visualize_solutions.py solutions_csv_list cutoff_rank min_size outputPlot")
 	print("solutions_csv_list: a text file having path to the fit_logs_revised.csv of each solution")
 	print("cutoff_rank: maximum rank display (3)")	
 	print("min_size (optional, default 40): amino acid size")
 	print("outputPlot (optional) output plot in eps format")
-	print("eg: python python visualize_solutions.py solutions_csv_list.txt 10 min_size plot.eps")
+	print("eg: visualize_solutions.py solutions_csv_list.txt 10 min_size plot.eps")
 	sys.exit()
 
 ''' Get protein ranking for this list'''

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # # -*- coding: utf-8 -*-
 
 """
@@ -11,10 +11,10 @@ import sys,os
 import pandas as pd
 
 def print_usage ():
-	print("usage: python filter_solution_list.py solutions_list minsize")
+	print("usage: filter_solution_list.py solutions_list minsize")
 	print("\tsolutions_list the revised csv file")
 	print("\tminsize minium size in amino acids")
-	print("eg: python filter_solution_list.py solutions_density1/fit_logs_revised.csv 100")
+	print("eg: filter_solution_list.py solutions_density1/fit_logs_revised.csv 100")
 	sys.exit()
 	
 def filter_csv(fitcsv, minsize):

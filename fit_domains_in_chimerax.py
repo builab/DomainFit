@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # # -*- coding: utf-8 -*-
 
 """
@@ -19,8 +19,8 @@ script_dir=os.path.dirname(os.path.realpath(__file__))
 import subprocess, multiprocessing
 
 def print_usage ():
-	print("usage: python fit_domains_in_chimerax.py inputDir outputDir inputMap mapLevel resolution searchNo noProcessor")
-	print("eg: python fit_domains_in_chimerax.py single_domains solutions ref.mrc 0.0394 5 200 10")
+	print("usage: fit_domains_in_chimerax.py inputDir outputDir inputMap mapLevel resolution searchNo noProcessor")
+	print("eg: fit_domains_in_chimerax.py single_domains solutions ref.mrc 0.0394 5 200 10")
 	sys.exit()
 	
 def execute(cmd):

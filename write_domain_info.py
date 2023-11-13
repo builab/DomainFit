@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # # -*- coding: utf-8 -*-
 
 """
@@ -30,7 +30,7 @@ def write_domains(input_pdb, output):
 	log.close()		
 	
 def print_usage ():
-	print("Usage: python write_domain_info.py inputDir outputDir")
+	print("Usage: write_domain_info.py inputDir outputDir")
 	sys.exit()
 
 if __name__ == "__main__":

@@ -14,5 +14,3 @@ for script in *.py; do
     fi
 done
 
-# Add script directory to the PATH
-export PATH="$PATH:$SCRIPT_DIR"

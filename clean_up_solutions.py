@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # # -*- coding: utf-8 -*-
 
 """
@@ -12,8 +12,8 @@ import sys,os
 import pandas as pd
 
 def print_usage ():
-	print("usage: python clean_up_solutions.py solutions_dir number_of_top_candidate_retained")
-	print("eg: python clean_up_solutions.py solutions_density1 10")
+	print("usage: clean_up_solutions.py solutions_dir number_of_top_candidate_retained")
+	print("eg: clean_up_solutions.py solutions_density1 10")
 	sys.exit()
 
 if __name__ == "__main__":

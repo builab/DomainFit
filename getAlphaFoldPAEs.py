@@ -17,7 +17,7 @@ import subprocess
 import csv
 
 def print_usage ():
-    print("usage: python getPAEs.py <inputFile> <outputDir>")
+    print("usage: getAlphaFoldPAEs.py <inputFile> <outputDir>")
     sys.exit()
 
 if not len(sys.argv) == 2 :

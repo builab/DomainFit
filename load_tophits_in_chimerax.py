@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # # -*- coding: utf-8 -*-
 
 """
@@ -12,8 +12,8 @@ import sys,os
 import pandas as pd
 
 def print_usage ():
-	print("usage: python load_tophits_in_chimerax.py density solutions_dir number_of_top_hit minsize")
-	print("eg: python load_tophits_in_chimerax.py density.mrc solutions_dir 5 60")
+	print("usage: load_tophits_in_chimerax.py density solutions_dir number_of_top_hit minsize")
+	print("eg: load_tophits_in_chimerax.py density.mrc solutions_dir 5 60")
 	sys.exit()
 	
 def filter_csv(fitcsv, minsize):
@@ -33,6 +33,7 @@ def filter_csv(fitcsv, minsize):
 
 if __name__ == "__main__":
 	if len(sys.argv) < 5:
+		print(sys.argv)
 		print_usage()
 
 	density = sys.argv[1]
