@@ -18,9 +18,8 @@ def execute(cmd):
 	return subprocess.call(cmd,shell=True)
 
 def print_usage ():
-	print("usage: python save_domain_all_using_domain_info.py inputDirPDB inputDirDomainInfo outputDir minLength maxLength noProcessor")
+	print("usage: python save_domains_from_info.py inputDirPDB inputDirDomainInfo outputDir minLength maxLength noProcessor")
 	sys.exit()
-#print(len(sys.argv))
 
 if __name__ == "__main__":
 

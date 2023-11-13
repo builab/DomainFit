@@ -18,8 +18,8 @@ script_dir=os.path.dirname(os.path.realpath(__file__))
 
 
 def print_usage ():
-	print("usage: python process_predicted_model_all.py <inputDir> <outputDir> <noProc> options")
-	print("eg: python process_predicted_model_all.py input domains 10 maximum_rmsd=.8 maximum_domains=8")
+	print("usage: python process_predicted_models.py <inputDir> <outputDir> <noProc> options")
+	print("eg: python process_predicted_models.py input domains 10 maximum_rmsd=.8 maximum_domains=8")
 	sys.exit()
 	
 def execute(cmd):
@@ -65,7 +65,7 @@ if __name__ == "__main__":
 	os.makedirs(output_dir, exist_ok=True)
 
 
-	print(f'Process_predicted_model options: {options}')
+	print(f'Process_predicted_models options: {options}')
 
 	cmds=[]
 	for pdb in os.listdir(input_dir):

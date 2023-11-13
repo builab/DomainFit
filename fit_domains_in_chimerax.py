@@ -6,7 +6,7 @@
 @Require ChimeraX 1.5 and up with proper excecutable
 """
 # Usage
-# python fit_all_domain_in_chimerax pdb_dir output_dir input_map map_level resolution search numProc
+# python fit_domains_in_chimerax pdb_dir output_dir input_map map_level resolution search numProc
 
 # TODO
 # Add also cif option
@@ -19,8 +19,8 @@ script_dir=os.path.dirname(os.path.realpath(__file__))
 import subprocess, multiprocessing
 
 def print_usage ():
-	print("usage: python fit_all_domain_in_chimerax.py inputDir outputDir inputMap mapLevel resolution searchNo noProcessor")
-	print("eg: python fit_all_domain_in_chimerax.py single_domains solutions ref.mrc 0.0394 5 200 10")
+	print("usage: python fit_domains_in_chimerax.py inputDir outputDir inputMap mapLevel resolution searchNo noProcessor")
+	print("eg: python fit_domains_in_chimerax.py single_domains solutions ref.mrc 0.0394 5 200 10")
 	sys.exit()
 	
 def execute(cmd):
