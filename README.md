@@ -1,4 +1,4 @@
-# DomainFit (Previously: chimerax_domain_fit)
+# DomainFit
 Script to autofit domains in Chimerax
 
 Goal: Provided a database of proteins and an isolated electron density, find the protein that best fits the electron density geometrically
