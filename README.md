@@ -3,16 +3,14 @@ Script to autofit domains in Chimerax
 
 Goal: Provided a database of proteins and an isolated electron density, find the protein that best fits the electron density geometrically
 
-## Installation
-
-    $ git clone https://github.com/builab/DomainFit.git
+The program works for Linux and MacOS. For MacOS, a bit more modification needed.
 
 ### Software and Package Requirements
-1. **Phenix** v1.20.1 or higher
+1. **Phenix** v1.20.1 or higher (https://phenix-online.org/)
    
         phenix.process_predicted_model
    
-2. **Chimerax** v1.4 or higher
+2. **Chimerax** v1.4 or higher (https://www.cgl.ucsf.edu/chimera/)
    
         chimerax.fitmap
 
@@ -21,10 +19,49 @@ Goal: Provided a database of proteins and an isolated electron density, find the
         BioPython
         pandas
 
-6. **Rscript** 3.6.3 or higher  
+6. **Rscript** 3.6.3 or higher  (https://cran.r-project.org/)
 
         fdrtool
         psych
+
+## Installation
+
+DomainFit Python Script
+
+    $ git clone https://github.com/builab/DomainFit.git
+    $ cd DomainFit
+    $ chmod +x install.sh
+    $ ./install.sh
+
+For MacOSX, you have to modify the "chimerax_path" variable to your ChimeraX's binary file. e.g. /Applications/ChimeraX-1.5.app/Contents/MacOS/ChimeraX in "save_domains_from_info.py" and "fit_domains_in_chimerax.py"
+For Linux, install Biopython and pandas using pip
+
+     $pip install biopython
+     $pip install pandas
+
+For MacOS, you have to install pandas inside ChimeraX
+Open ChimeraX, select Tools/General/Shell
+
+Inside the shell type:
+
+    [1]: pip install pandas
+
+
+R with fdrtool & psych
+
+     Download R from https://cran.r-project.org/ and install
+     Start R in a terminal
+     $R
+     >>install.packages('fdrtool', repos='http://cran.us.r-project.org')
+     >>install.packages('psych', repos='http://cran.us.r-project.org')
+     >> quit()
+     Save workspace image? [y/n/c]: n
+
+
+
+Before usage
+
+    $source DOMAIN_FIT_DIR/source_env.sh
    
 ## Workflow
 
