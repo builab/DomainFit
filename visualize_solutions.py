@@ -79,7 +79,7 @@ if __name__ == "__main__":
 	protList = list()
 	for i in range(count-1):
 		new_col = f'rank{i+1}'
-		protList.extend(df_rank.loc[df_rank[new_col] < cutoff, 'Protein'].tolist())
+		protList.extend(df_rank.loc[df_rank[new_col] <= cutoff, 'Protein'].tolist())
 	protList = set(protList)
 	
 	# Need to replace either .txt or .csv to .csv	
