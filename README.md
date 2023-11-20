@@ -120,6 +120,7 @@ Fitting using ChimeraX: Take each domain and fit it into the density automatical
 
 ## Additional Scripts
 
+
 #### clean_up_solutions.py
 Clean up the solution after having a look at it
 
@@ -154,6 +155,7 @@ Generate a new .csv file with a minimum size filtering
 > Output: filtered csv file
 
 	filter_solution_list.py solutions_list minsize
+
 
  ### visualize_solutions.py
  Generate a visual of top solutions from many searches
