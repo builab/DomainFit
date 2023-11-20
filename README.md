@@ -121,7 +121,7 @@ Fitting using ChimeraX: Take each domain and fit it into the density automatical
 ## Additional Scripts
 
 
-#### clean_up_solutions.py
+### clean_up_solutions.py
 Clean up the solution after having a look at it
 
 > Input: Best-hit pdbs + pngs + csvs
@@ -139,7 +139,7 @@ Visualizing domain features: Generates histograms based on the number of residue
 	plot_domain_histogram.py domain_info_dir
 
 
-#### load_tophits_in_chimerax.py
+### load_tophits_in_chimerax.py
 Generate a .cxc file to load the top hits for visualization in ChimeraX.
 
 > Input: density + solution_dir
@@ -148,7 +148,7 @@ Generate a .cxc file to load the top hits for visualization in ChimeraX.
 	load_tophits_in_chimerax.py density solutions_dir number_of_top_hit minsize
 
 
-#### filter_solution_list.py
+### filter_solution_list.py
 Generate a new .csv file with a minimum size filtering
 
 > Input: solution_dir/fit_log_revised.csv file
