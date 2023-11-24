@@ -12,11 +12,11 @@ Fetching AlphaFold PDBs from a list of UniprotID. The `list_protein.csv` is a sh
 If there are missing proteins, they will be recorded in missingAF.log file. The missing proteins tend to be big proteins > 100kD. In this case, there are 4 missing proteins. You can predict them using ColabFold or AlphaFold. For the sake of the example, just ignore it.
 
 > I7M688
-
+>
 > I7LWA5
-
+>
 > I7LU47
-
+>
 > Q230X9
 
 
@@ -29,14 +29,15 @@ In this case, using 10 processors speeds up the calculation a lot.
 Example of a domain info file: `Q238X3.domains`
 
 > D1	10-21
-
+>
 > D2	32-157
-
+>
 > D3	183-223
 
 
-## Step 3: Saving domain-separated PDBs to `single_domains` directory using domain info files from the previous step.
-In this step, we also filter all domains < 40 amino acids & > 1000 amino acids (the upper range is for the case the domain segmentation fails) using 10 processors.
+## Step 3: Saving domain-separated PDBs to using domain info files from the previous step.
+
+We will save one PDB for each domain in `single_domains` directory. In this step, we also filter all domains < 40 amino acids & > 1000 amino acids (the upper range is for the case the domain segmentation fails) using 10 processors.
 
 	save_domains_from_info.py pdb_files domains single_domains 40 1000 10
 
