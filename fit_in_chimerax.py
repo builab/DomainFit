@@ -92,7 +92,7 @@ if useMacOs == 0 :
 
 # Generate p_values
 
-cmd = f'Rscript {script_dir}/pval_from_solutions.R {outlist}'
+cmd = f'Rscript {script_dir}/pval_from_solutions.R {outlist} correlation_about_mean'
 
 print(f'start {cmd}', datetime.now())
 status = subprocess.call(cmd,shell=True)

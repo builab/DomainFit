@@ -2,13 +2,13 @@
 # # -*- coding: utf-8 -*-
 
 """
-@Authors Jerry Gao & Huy Bui
+@Authors Huy Bui
 """
 # Usage
 # Operate from the main folder
 # Load the top hits in ChimeraX
 
-import sys,os
+import sys,os, subprocess
 import pandas as pd
 
 def print_usage ():
@@ -40,10 +40,14 @@ if __name__ == "__main__":
 	sol_dir = sys.argv[2]
 	noTophits = int(sys.argv[3])
 	minsize = int(sys.argv[4])
+	outfile = 'load_tophits.cxc'
+	
+	default_macos_chimera_path = "/Applications/ChimeraX-1.5.app/Contents/MacOS/ChimeraX"
 	
 	print("Generate a script to load {:d} top hits from {:s} with a minumum size of {:d} amino acids".format(noTophits, sol_dir, minsize))
-	f = open('load_tophits.cxc', 'wt')
+	f = open(outfile, 'wt')
 	f.write(f'open {density}\n')
+	f.write(f'volume #1 transparency .5\n')
 	
 	fitcsv = sol_dir + '/fit_logs_revised.csv'
 	df = filter_csv(fitcsv, minsize)
@@ -56,5 +60,28 @@ if __name__ == "__main__":
 			break
 	
 	f.close()
-	print("load_tophits.cxc written!")
+	print(f"{outfile} written!")
+	
+	# Check operating system
+	useMacOs = 0
+	print("Platform: " + sys.platform)
+
+	if sys.platform == 'darwin': #MacOS
+		useMacOs = 1
+		print ("No capability to generate picture on MacOS!!!")
+		
+	chimerax_path = "chimerax"
+	if useMacOs == 1:
+		chimerax_path = default_macos_chimera_path
+	
+	# Check if ChimeraX path is correct	
+	if os.path.exists(chimerax_path) == 0 and which(chimerax_path) is None:
+		print(f"The file '{chimerax_path}' does not exist.")
+		print("Modify the script for the path of ChimeraX version from 1.5 and above.")
+		print(f"Or just open the {outfile} with ChimeraX")
+		exit(0)
+	
+	cmd = f'{chimerax_path} --cmd \"runscript {outfile}"'
+	print(cmd)
+	subprocess.call(cmd, shell=True)
 	

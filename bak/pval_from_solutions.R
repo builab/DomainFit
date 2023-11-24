@@ -1,6 +1,6 @@
 #Authors: Bernd Klaus and Alessandro Ori, modified by Jan Kosinski @ EMBL
 #Added eta0 by Huy Bui
-#Add args[3] to output individual R plot, which is disabled by default
+#TODO perhaps add args[3] to output individual R plot, which is disabled by default
 
 #Running:
 #Rscript <path>/pval_from_solutions.R
@@ -19,11 +19,6 @@ if (length(args)==0) {
 
 fn = args[1]
 score = args[2]
-if (length(args) == 3) {
-	outfile = paste(args[3], '_pvalue.pdf', sep="")
-	pdf(outfile)
-}
-
 print(score)
 
 # install.packages('fdrtool')
@@ -95,9 +90,7 @@ write.csv(hit_data_sub[order(hit_data_sub[[score]], decreasing = TRUE),], outfn)
 boxplot(hit_data_sub$score_z_c)
 boxplot.stats(hit_data_sub$score_z_c)
 
-if (length(args) == 3) {
-	dev.off()
-}
+
 
 ## DEBUG Code
 
