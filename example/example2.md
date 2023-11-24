@@ -1,15 +1,16 @@
 # DomainFit example
 
-## Goal: Find the domain fitted inside density2.mrc
+Goal: Find the domain fitted inside density2.mrc
 
 
 ## Step 1: Download the AlphaFold model from AFDB 
-
-Fetching AlphaFold PDBs from a list of UniprotID. The `list_protein.csv` is a shorten list with 164 proteins. The output will be all the PDB models downloaded from AFDB in the pdb_files directory
+Fetching AlphaFold PDBs from a list of UniprotID
+The list_protein.csv is a shorten list with 164 proteins. The output will be all the PDB models downloaded from AFDB in the pdb_files directory
 
 	getAlphaFoldPDBs.py --ilist list_proteins.csv --odir pdb_files
 	
-If there are missing proteins, they will be recorded in missingAF.log file. The missing proteins tend to be big proteins > 100kD. In this case, there are 4 missing proteins. You can predict them using ColabFold or AlphaFold. For the sake of the example, just ignore it.
+If there are missing proteins, they will be recorded in missingAF.log file. The missing proteins tend to be big proteins > 100kD.
+In this case, there are 4 missing proteins. You can predict them using ColabFold or AlphaFold. For the sake of the example, just ignore it.
 
 > I7M688
 > I7LWA5
@@ -18,7 +19,7 @@ If there are missing proteins, they will be recorded in missingAF.log file. The 
 
 
 ## Step 2: Automatically divided the PDBs into domains (phenix must be sourced if it is not in the path)
-This step segments the PDB in `pdb_files` directory automatically into domains and writes the domain info (.domains) in the `domains` directory with the DPAM format.
+This step segments the PDB in 'pdb_files' automatically into domains and writes the domain info (.domains) in the 'domains' folder with the DPAM format.
 
 	process_predicted_models_adaptive.py pdb_files domains 10 split_model_by_compact_regions=True
 
