@@ -26,11 +26,9 @@ This step segments the PDB in `pdb_files` directory automatically into domains a
 In this case, using 10 processors speeds up the calculation a lot.
 Example of a domain info file: `Q238X3.domains`
 
-> D1	10-21
->
-> D2	32-157
->
-> D3	183-223
+> D1	10-21  
+D2	32-157  
+D3	183-223
 
 
 ## Step 3: Saving domain-separated PDBs to using domain info files from the previous step.
