@@ -11,16 +11,14 @@ Fetching AlphaFold PDBs from a list of UniprotID. The `list_protein.csv` is a sh
 	
 If there are missing proteins, they will be recorded in missingAF.log file. The missing proteins tend to be big proteins > 100kD. In this case, there are 4 missing proteins. You can predict them using ColabFold or AlphaFold. For the sake of the example, just ignore it.
 
-> I7M688
->
-> I7LWA5
->
-> I7LU47
->
-> Q230X9
+> I7M688[space][space]
+I7LWA5[space][space]
+I7LU47[space][space]
+Q230X9[space][space]
 
 
-## Step 2: Automatically divided the PDBs into domains (phenix must be sourced if it is not in the path)
+## Step 2: Automatically divided the PDBs into domains
+Note: phenix must be sourced if it is not in the path
 This step segments the PDB in `pdb_files` directory automatically into domains and writes the domain info (.domains) in the `domains` directory with the DPAM format.
 
 	process_predicted_models_adaptive.py pdb_files domains 10 split_model_by_compact_regions=True
