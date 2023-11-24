@@ -83,5 +83,7 @@ if __name__ == "__main__":
 	
 	cmd = f'{chimerax_path} --cmd \"runscript {outfile}"'
 	print(cmd)
-	subprocess.call(cmd, shell=True)
+	status = subprocess.call(cmd,shell=True)
+	if status != 0:
+		print(f"Error in {cmd}. Try to open the cxc file manually")
 	
