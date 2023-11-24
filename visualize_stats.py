@@ -18,7 +18,7 @@ script_dir=os.path.dirname(os.path.realpath(__file__))
 def print_usage ():
 	print("usage: visualize_stats.py solutions_list number_of_tophits")
 	print("\tsolutions_list the revised csv file")
-	print("\tnumber_of_tophits Number of hit included in pdf generation")
+	print("\tnumber_of_tophits Number of hit included in pdf generation (default = 0)")
 	print("eg: visualize_stats.py solutions_density1/fit_logs_revised.csv 100")
 	sys.exit()
 	
@@ -32,12 +32,14 @@ def generate_Rpdf (outlist, model_basename):
 	return status
 	
 if __name__ == "__main__":
-	if len(sys.argv) < 3:
+	if len(sys.argv) < 2:
 		print_usage()
 
 	fitcsv = sys.argv[1]
-	noTophits = int(sys.argv[2])
-	
+	if len(sys.argv) == 3:
+		noTophits = int(sys.argv[2])
+	else:
+		noTophits = 0
 	
 	# Generate plot
 	print(f"Plotting result for {fitcsv}")
