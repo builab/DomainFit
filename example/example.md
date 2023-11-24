@@ -57,23 +57,30 @@ You can look at the `solutions/fit_logs_revised.csv` in Excel for detail. For a 
 	visualize_stats.py solutions/fit_logs_revised.csv
 	
 	
-A graph of -log10(pvalue) vs. Normalized correlation coefficient should show up. The graph is also save as solutions/summaryplot.eps. In the case, the top hit (right top corner) is clearly distinct from other solutions.
+A graph of -log10(pvalue) vs. Normalized correlation coefficient should show up. The graph is also save as `solutions/summaryplot.eps`. In the case, the top 2 hits (right top corner) are clearly distinct from other solutions. So, they are likely paralogs.
+
+
+![summaryplot](https://github.com/builab/DomainFit/blob/main/example/summaryplot.png?raw=true)
 
 
 ### Visualize the top hits in ChimeraX
 Generate a .cxc file to load the top hits for visualization in ChimeraX. Here, we choose to load only the top 5 hits with the minimum size of 80 amino acids. Size filtering is helpful in filtering small domains fitting wrongly with good correlations.
 
-	load_tophits_in_chimerax.py density2.mrc solutions 5 80
+	load_tophits_in_chimerax.py density2.mrc solutions 2 80
 
-ChimeraX is supposed to open from the terminal. If it is not, open the load_tophits.cxc using ChimeraX manually. The domains are sorted by rank, #2 = rank 1, #3 = rank 2, etc.
+ChimeraX is supposed to open from the terminal. If it is not, open the `load_tophits.cxc` using ChimeraX manually. The domains are sorted by rank in ChimeraX, #2 = rank 1, #3 = rank 2, etc. As you can clearly see, the top 2 hits are paralogs (PACRG paralogs)
+
+
+![summaryplot](https://github.com/builab/DomainFit/blob/main/example/tophits.png?raw=true)
+
 
 ### Filter the solution list file size
-Generate a new .csv file with a minimum size in amino acids filtering. Filter all domains < 100 amino acids. The output .csv will contain NO domain with size < 100 amino acids.
+Generate a new .csv file with a minimum size in amino acids filtering. Filter all domains < 100 amino acids. The output .csv will contain NO domain with size < 100 amino acids. A new solution list file `solutions_example/fit_logs_revised_min80.csv` is created in this case.
 
 	filter_solution_list.py solutions/fit_log_revised.csv 80
 	
 	
 ## Step 6: Clean up results
-Once you are done analysing and found your data, you can clean up the data. The script reads fit_log_revised.csv file in the provided directory and only keep the top X (10 in this case) hits.
+Once you are done analysing and found your data, you can clean up the data. The script reads `fit_log_revised.csv` file in the provided directory and only keep the top X (10 in this case) hits.
 
 	clean_up_solutions.py solutions 10
