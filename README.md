@@ -10,7 +10,7 @@ The program works for Linux and MacOS. For MacOS, a bit more modification needed
    
         phenix.process_predicted_model
    
-2. **Chimerax** v1.4 or higher (https://www.cgl.ucsf.edu/chimera/)
+2. **Chimerax** v1.5 or higher (https://www.cgl.ucsf.edu/chimera/)
    
         chimerax.fitmap
 
