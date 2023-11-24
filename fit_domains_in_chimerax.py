@@ -7,9 +7,6 @@
 """
 # Usage
 # python fit_domains_in_chimerax pdb_dir output_dir input_map map_level resolution search numProc
-
-# TODO
-# Add also cif option
 # Write a file for the best fit correlation for each domain as a summary
 
 import sys,os,time
@@ -69,7 +66,7 @@ if __name__ == "__main__":
 	log_file = output_dir + '/fit_logs.txt'
 	log = open(log_file, "w")
 	# log.write("#{}\n".format(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")))
-	log.write("\nDomain, NoRes, Best_Corr, Second_Best_Corr, Diff, Worst_Corr, Range, P_val_best_fit, Corr_about_mean, Eta0, Pvalue\n")
+	log.write("\nDomain, NoRes, Best_Corr, Second_Best_Corr, Diff, Worst_Corr, Range, P_val_best_fit, Corr_about_mean, Eta0, Pvalue, BH_adjusted_Pvalue\n")
 	# log.write("\n")
 	log.close()
 
@@ -91,7 +88,7 @@ if __name__ == "__main__":
 	print(df)
 	#for col in df.columns:
 		#print(col)
-	df.sort_values(['Pvalue', 'Corr_mean'], ascending=[True, False], inplace=True)
+	df.sort_values(['BH_adjusted_Pvalue', 'Corr_about_mean'], ascending=[True, False], inplace=True)
 	# df.sort_values(by = "Diff", inplace=True, ascending=False)
 
 	#print(df)

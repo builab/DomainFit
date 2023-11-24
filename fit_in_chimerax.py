@@ -112,13 +112,15 @@ df.dropna()
 fit_no = df.loc[:, df.columns[0]][0]
 corr_mean = df.loc[:, df.columns[26]][0]
 pvalue = df.loc[:, df.columns[38]][0]
+# Use BH_adjusted_pvalues
+bhpvalue = df.loc[:, df.columns[41]][0]
 eta0 = df.loc[:, df.columns[39]][0]
 # print(df.loc[:, df.columns[0]])
 
 # Log best results into log_file
 log_file = output_dir + '/fit_logs.txt'
 log = open(log_file, "a")
-log.write('%s,%d,%0.4f,%0.4f,%0.4f,%0.4f,%0.4f,%s,%0.4f,%0.4f,%.6g\n' % (model_basename, model.chains[0].num_existing_residues, best_corr, second_best_corr, difference, worst_best_corr, range, fit_no, corr_mean, eta0, pvalue))
+log.write('%s,%d,%0.4f,%0.4f,%0.4f,%0.4f,%0.4f,%s,%0.4f,%0.4f,%.6g,%.6g\n' % (model_basename, model.chains[0].num_existing_residues, best_corr, second_best_corr, difference, worst_best_corr, range, fit_no, corr_mean, eta0, pvalue, bhpvalue))
 log.close()
 
 # runscript /storage2/Thibault/Max/ProteinAnalysis/fit_in_chimerax.py /storage2/Thibault/Max/test_parsing /storage2/Thibault/Max/test_parsing C1C2_MAP_only_erase.mrc Q22DM0.pdb

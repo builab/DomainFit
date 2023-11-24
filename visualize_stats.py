@@ -59,11 +59,19 @@ if __name__ == "__main__":
 
 	outEps = os.path.join(soldir, "summaryplot.eps")	
 	print(f"Plotting R statistics for {fitcsv} from {noTophits} top hits.\nOutput to {outEps}")
-	plt.figure(figsize=(10, 6))
-	plt.plot(df['Corr_mean'].to_numpy(), -np.log10(df['Pvalue'].to_numpy()), marker='o', linestyle="", markerfacecolor="white", linewidth=4)
-	plt.ylabel('-log(pvalue)')
-	plt.xlabel('Normalized correlation coefficient')
-	plt.title(f'Fitting of all domains')
-	plt.grid(False)
+	
+	fig, axs = plt.subplots(2)
+	fig.suptitle('Fitting of all domains')
+	fig.set_figwidth(10)
+	fig.set_figheight(11)
+	axs[0].plot(df['Corr_about_mean'].to_numpy(), -np.log10(df['Pvalue'].to_numpy()), marker='o', linestyle="", markerfacecolor="white", linewidth=4)
+	axs[0].set(ylabel="-log(pvalue)", xlabel = "Normalized correlation coefficient")
+	axs[0].grid(False)
+	
+	axs[1].plot(df['Corr_about_mean'].to_numpy(), -np.log10(df['BH_adjusted_Pvalue'].to_numpy()), marker='o', linestyle="", markerfacecolor="white", linewidth=4)
+	axs[1].set(ylabel="-log(BH_adjusted_pvalue)", xlabel = "Normalized correlation coefficient")
+	axs[1].grid(False)	
+	
+	
 	plt.savefig(outEps, format='eps')
 	plt.show()
