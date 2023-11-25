@@ -54,7 +54,7 @@ Alternatively, if you want to see how the complete AlphaFold2 models fitted into
 ### Visualize the p-value & correlations
 You can look at the `solutions/fit_logs_revised.csv` in Excel for detail. For a quick visualization of the overal fitting
 
-	visualize_stats.py solutions/fit_logs_revised.csv
+	visualize_fit_stats.py solutions/fit_logs_revised.csv
 	
 	
 A graph of -log10(pvalue) vs. Normalized correlation coefficient should show up. The graph is also save as `solutions/summaryplot.eps`. In the case, the top 2 hits (right top corner) are clearly distinct from other solutions. So, they are likely paralogs.

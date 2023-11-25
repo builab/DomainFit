@@ -155,6 +155,15 @@ Generate a new .csv file with a minimum size filtering
 > Output: filtered csv file
 
 	filter_solution_list.py solutions_list minsize
+	
+	
+### visualize_fit_stats.py
+Generate a new .eps plot of the fitting statistics from one fitting list with size filtering
+
+> Input: solution_dir/fit_log_revised.csv file, minimum size in amino acids (default = 0)
+> Output: solutions_dir/summaryplot.eps
+
+	visualize_fit_stats.py solutions_list minsize
 
 
  ### visualize_solutions.py
