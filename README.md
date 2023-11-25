@@ -17,7 +17,7 @@ The program works for Linux and MacOS. For MacOS, a bit more modification needed
 3. **Python** 3 or higher
 	
         BioPython
-        pandas
+        pandas, numpy
 
 6. **Rscript** 3.6.3 or higher  (https://cran.r-project.org/)
 
