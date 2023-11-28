@@ -64,6 +64,8 @@ if __name__ == "__main__":
 	count = 1
 	df_rank = pd.DataFrame()
 	for fitcsv in sol_list:
+		if fitcsv.isspace() == True:
+			continue	
 		df_fit = process_csv(fitcsv, minsize)
 		new_col = f'rank{count}'
 		df_fit.rename(columns={'index': new_col}, inplace=True)
