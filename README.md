@@ -1,9 +1,9 @@
 # DomainFit
 Script to autofit domains in Chimerax
 
-Goal: Provided a database of proteins and an isolated electron density, find the protein that best fits the electron density geometrically
+Goal: Provided a database of proteins and an isolated electron density, and find the protein that best fits the electron density geometrically
 
-The program works for Linux and MacOS. For MacOS, a bit more modification needed.
+The program works for Linux and MacOS. For MacOS, a bit more modification is needed.
 
 ### Software and Package Requirements
 1. **Phenix** v1.20.1 or higher (https://phenix-online.org/)
@@ -82,7 +82,7 @@ Other utility scripts:
 - write_domain_info.py
 - load_tophits_in_chimerax.py
 
-### Fetching AlphaFold PDBs 
+### 1. Fetching AlphaFold PDBs 
 Downloading from AFDB from a list of UniprotID
 
 > Input: A list of UniprotIDs (1 per line) in text format (.txt or .csv)
@@ -92,15 +92,15 @@ Downloading from AFDB from a list of UniprotID
 
  missingAF.log file will tell you which proteins do not have AlphaFold structure available.
 
-### Parsing AlphaFold predicted models into domains
+### 2. Parsing AlphaFold predicted models into domains
 Generating domain pdbs: Parse automatically using phenix.process_predicted_model, can use default parameters or options.
 
-> Input: Alphafold pdbs
+> Input: AlphaFold predicted pdbs
 > Output: Domain-parsed pdbs (*domains.pdb) and domain information files (*.domains)
 
 	process_predicted_models.py pdb_files domains nocpu
 
-### Save each domain into single PDB file
+### 3. Save each domain into single PDB file
 Saving domain-separated pdbs using info from the previous step: Parse through domain info and save domains into individual pdbs. Additional screenshots are taken of each domain.
 
 > Input: Domain-parsed pdbs, domain_info files folder
@@ -109,8 +109,8 @@ Saving domain-separated pdbs using info from the previous step: Parse through do
 	save_domains_from_info.py pdb_files domains single_domains minResidueNo maxResidueNo nocpu
 
 
-### Fit all domains into ChimeraX
-Fitting using ChimeraX: Take each domain and fit it into the density automatically using ChimeraX built in function fitmap. Output pdb saves the fit orientation. Additional screenshots are taken of each domain fitted into the density. A csv file is generated to document all hits and their respective values (correlation, overlay, overlap, etc.). Default map level is set to 0.034 and a map resolution of 5 Å
+### 4. Fit all domains into ChimeraX
+Fitting using ChimeraX: Take each domain and fit it into the density automatically using ChimeraX built in function fitmap. Output pdb saves the fit orientation. Additional screenshots are taken of each domain fitted into the density. A CSV file is generated to document all hits and their respective values (correlation, overlay, overlap, etc.). The default map level is set to 0.034 and a map resolution of 5 Å. Make sure to change this value to the corresponding value for your density.
 
 > Input: Domain-separated pdbs + protein density
 > Output: Solutions with Best-hit pdbs + pngs + csvs
@@ -171,7 +171,7 @@ Generate a new .eps plot of the fitting statistics from one fitting list with si
  ### visualize_solutions.py
  Generate a visual of top solutions from many searches
 
- > Input: solution directories of many density, a .txt file containing the list of those directories
+ > Input: solution directories of many densities, a .txt file containing the list of those directories
  > Output: eps file showing
 
 	visualize_solutions.py solutions_csv_list cutoff_rank min_size outputPlot
