@@ -82,6 +82,8 @@ Other utility scripts:
 - write_domain_info.py
 - load_tophits_in_chimerax.py
 
+NOTE: Try out the [example](example/example.md) to test the workflow and correct installation.
+
 ### 1. Fetching AlphaFold PDBs 
 Downloading from AFDB from a list of UniprotID
 
@@ -116,9 +118,7 @@ Fitting using ChimeraX: Take each domain and fit it into the density automatical
 > Output: Solutions with Best-hit pdbs + pngs + csvs
 
 	fit_domains_in_chimerax.py inputDir outputDir inputMap mapLevel resolution searchNo noProcessor
-
-
-
+ 
 
 ## Additional Scripts
 
@@ -184,4 +184,5 @@ Fetching AlphaFold predicted alignment error from a list of Uniprot ID. Not used
 > Output: A download directory containing PAEs downloading from alphafold.ebi.ac.uk
 
 	getAlphaFoldPAEs.py --ilist list_proteins.csv --odir pdb_files --ignore_existing
+
  
