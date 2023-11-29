@@ -5,7 +5,7 @@
 
 ## Step 1: Download the AlphaFold model from AFDB 
 
-Fetching AlphaFold PDBs from a list of UniprotID. The [`list_protein.csv`](list_protein.csv) is a shortened list with 164 proteins. The output will be all the PDB models downloaded from AFDB in the pdb_files directory
+Fetching AlphaFold PDBs from a list of UniprotID. The [`list_proteins.csv`](list_proteins.csv) is a shortened list with 164 proteins. The output will be all the PDB models downloaded from AFDB in the pdb_files directory
 
 	getAlphaFoldPDBs.py --ilist list_proteins.csv --odir pdb_files
 	
