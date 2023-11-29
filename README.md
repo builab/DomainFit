@@ -82,15 +82,17 @@ Other utility scripts:
 - write_domain_info.py
 - load_tophits_in_chimerax.py
 
-### getAlphaFoldPDBs.py
-Fetching AlphaFold PDBs from a list of UniprotID
+### Fetching AlphaFold PDBs 
+Downloading from AFDB from a list of UniprotID
 
 > Input: A list of UniprotIDs (1 per line) in text format (.txt or .csv)
 > Output: A download directory containing pdbs downloading from alphafold.ebi.ac.uk
 
 	getAlphaFoldPDBs.py --ilist list_proteins.csv --odir pdb_files
 
-### process_predicted_models.py or process_predicted_models_adaptive.py
+ missingAF.log file will tell you which proteins do not have AlphaFold structure available.
+
+### Parsing AlphaFold predicted models into domains
 Generating domain pdbs: Parse automatically using phenix.process_predicted_model, can use default parameters or options.
 
 > Input: Alphafold pdbs
@@ -98,7 +100,7 @@ Generating domain pdbs: Parse automatically using phenix.process_predicted_model
 
 	process_predicted_models.py pdb_files domains nocpu
 
-### save_domains_from_info.py
+### Save each domain into single PDB file
 Saving domain-separated pdbs using info from the previous step: Parse through domain info and save domains into individual pdbs. Additional screenshots are taken of each domain.
 
 > Input: Domain-parsed pdbs, domain_info files folder
@@ -107,7 +109,7 @@ Saving domain-separated pdbs using info from the previous step: Parse through do
 	save_domains_from_info.py pdb_files domains single_domains minResidueNo maxResidueNo nocpu
 
 
-### fit_domains_in_chimerax.py
+### Fit all domains into ChimeraX
 Fitting using ChimeraX: Take each domain and fit it into the density automatically using ChimeraX built in function fitmap. Output pdb saves the fit orientation. Additional screenshots are taken of each domain fitted into the density. A csv file is generated to document all hits and their respective values (correlation, overlay, overlap, etc.). Default map level is set to 0.034 and a map resolution of 5 Å
 
 > Input: Domain-separated pdbs + protein density
