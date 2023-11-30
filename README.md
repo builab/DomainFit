@@ -33,7 +33,7 @@ DomainFit Python Script
     $ chmod +x install.sh
     $ ./install.sh
 
-For MacOSX, you have to modify the "chimerax_path" variable to your ChimeraX's binary file. e.g. /Applications/ChimeraX-1.5.app/Contents/MacOS/ChimeraX in "save_domains_from_info.py" and "fit_domains_in_chimerax.py"
+For MacOSX, you have to modify the "chimerax_path" variable to your ChimeraX's binary file. e.g. /Applications/ChimeraX-1.5.app/Contents/MacOS/ChimeraX in "save_domains_from_info.py" and "fit_domains_in_chimerax.py" and "load_tophits_in_chimerax.py"
 For Linux, install Biopython and pandas using pip
 
      $pip install biopython
