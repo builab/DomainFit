@@ -70,7 +70,7 @@ hist(hit_data_sub$score_z, freq = FALSE, breaks=100)
 
 ## try a simple shift
 hit_data_sub$score_z_c <- hit_data_sub$score_z-mean(hit_data_sub$score_z)
-hist(hit_data_sub$score_z_c, breaks=100)
+hist(hit_data_sub$score_z_c, breaks=30)
 
 fdrtool_res_shift <- fdrtool(hit_data_sub$score_z_c , statistic =  "normal", cutoff.method="pct0", pct0=0.95)
 
