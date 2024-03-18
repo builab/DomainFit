@@ -89,6 +89,7 @@ Downloading from AFDB from a list of UniprotID
 
 > Input: A list of UniprotIDs (1 per line) in text format (.txt or .csv)
 > Output: A download directory containing pdbs downloading from alphafold.ebi.ac.uk
+> Note: The list_proteins.csv must be free of special characters otherwise the program will complain about Unicode utf-8 error. The best way to prepare the file is to copy from a list to a text editor such as gedit.
 
 	getAlphaFoldPDBs.py --ilist list_proteins.csv --odir pdb_files
 
