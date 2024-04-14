@@ -16,21 +16,22 @@ I7LWA5
 I7LU47  
 Q230X9
 
-## Step 2: Predict these proteins using Colabfold
+## Step 1b: Predict the missing proteins using Colabfold
 If you predict these proteins using Colabfold notebook, download all the result files and move in Colabfold_output (no subfolders).
 Otherwise, using localcolabfold [https://github.com/YoshitakaMo/localcolabfold], it is easy to run colabfold in batch
 
 First, download all the fasta files and then predict all the fasta files in batch
   
-  mkdir fasta colabfold_pred
-  retrieve_fasta_from_uniprot.py --ilist missingAF.log --odir fasta
-  colabfold_batch fasta colabfold_pred
+	mkdir fasta colabfold_pred
+	retrieve_fasta_from_uniprot.py --ilist missingAF.log --odir fasta
+	colabfold_batch fasta colabfold_pred
 
 Now, copy and rename the rank 1 pdb file to the downloaded AlphaFold folder
-  copy_colabfold_predictions colabfold_pred pdb_files
+
+	copy_colabfold_predictions colabfold_pred pdb_files
 
 
-## Step 3: Automatically divide the PDBs into domains
+## Step 2: Automatically divide the PDBs into domains
 Note: Phenix must be sourced if it is not in the path
 This step segments the PDB in `pdb_files` directory automatically into domains and writes the domain info (.domains) in the `domains` directory with the DPAM format.
 
