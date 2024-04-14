@@ -22,13 +22,13 @@ Q230X9
 If you predict these proteins using Colabfold notebook, download all the result files and move in Colabfold_output (no subfolders).
 Otherwise, using localcolabfold [https://github.com/YoshitakaMo/localcolabfold], it is easy to run colabfold in batch
 
-First, download all the fasta files and then predict all the fasta files in batch.
+First, download all the fasta files listed in the `missingAF.log` file and then predict all the fasta files in batch.
   
 	mkdir fasta colabfold_pred
 	retrieve_fasta_from_uniprot.py --ilist missingAF.log --odir fasta
 	colabfold_batch fasta colabfold_pred
 
-Now, copy and rename the rank_001 pdb file (top rank out of 5 predictions) to the downloaded AlphaFold folder
+Now, copy and rename all the rank_001 pdb files (top rank out of 5 predictions from ColabFold) to the downloaded AlphaFold folder
 
 	copy_colabfold_predictions colabfold_pred pdb_files
 
