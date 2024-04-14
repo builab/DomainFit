@@ -9,7 +9,7 @@ Fetching AlphaFold PDBs from a list of UniprotID. The [`list_proteins.csv`](list
 
 	getAlphaFoldPDBs.py --ilist list_proteins.csv --odir pdb_files
 	
-If there are missing proteins, they will be recorded in `missingAF.log` file. The missing proteins tend to be big proteins > 100kD. In this case, there are 4 missing proteins. You can predict them using ColabFold or AlphaFold. For the sake of the example, just ignore it.
+If there are missing proteins, they will be recorded in `missingAF.log` file. The missing proteins tend to be big proteins > 100kD. In this case, there are 4 missing proteins. You can predict them using ColabFold or AlphaFold. For the sake of the example, just ignore it and skip to Step 2. Otherwise, continue to Step 1b to predict all the missing proteins.
 
 > I7M688  
 I7LWA5  
