@@ -10,6 +10,7 @@ Fetching AlphaFold PDBs from a list of UniprotID. The [`list_proteins.csv`](list
 	getAlphaFoldPDBs.py --ilist list_proteins.csv --odir pdb_files
 	
 If there are missing proteins, they will be recorded in `missingAF.log` file. The missing proteins tend to be big proteins > 100kD. In this case, there are 4 missing proteins. You can predict them using ColabFold or AlphaFold. 
+
 Note: For the sake of the example, just ignore it and skip to Step 2. Otherwise, continue to Step 1b to predict all the missing proteins.
 
 > I7M688  
@@ -21,7 +22,7 @@ Q230X9
 If you predict these proteins using Colabfold notebook, download all the result files and move in Colabfold_output (no subfolders).
 Otherwise, using localcolabfold [https://github.com/YoshitakaMo/localcolabfold], it is easy to run colabfold in batch
 
-First, download all the fasta files and then predict all the fasta files in batch
+First, download all the fasta files and then predict all the fasta files in batch.
   
 	mkdir fasta colabfold_pred
 	retrieve_fasta_from_uniprot.py --ilist missingAF.log --odir fasta
