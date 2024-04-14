@@ -28,16 +28,16 @@ The program works for Linux and MacOS. For MacOS, a bit more modification is nee
 
 DomainFit Python Script
 
-    $ git clone https://github.com/builab/DomainFit.git
-    $ cd DomainFit
-    $ chmod +x install.sh
-    $ ./install.sh
+    git clone https://github.com/builab/DomainFit.git
+    cd DomainFit
+    chmod +x install.sh
+    ./install.sh
 
 For MacOSX, you have to modify the "chimerax_path" variable to your ChimeraX's binary file. e.g. /Applications/ChimeraX-1.5.app/Contents/MacOS/ChimeraX in "save_domains_from_info.py" and "fit_domains_in_chimerax.py" and "load_tophits_in_chimerax.py"
 For Linux, install Biopython and pandas using pip
 
-     $pip install biopython
-     $pip install pandas
+     pip install biopython
+     pip install pandas
 
 For MacOS, you have to install pandas inside ChimeraX
 Open ChimeraX, select Tools/General/Shell
@@ -61,7 +61,7 @@ R with fdrtool & psych
 
 Before usage
 
-    $source DOMAIN_FIT_DIR/source_env.sh
+    source DOMAIN_FIT_DIR/source_env.sh
    
 ## Workflow
 
@@ -76,11 +76,14 @@ Scripts:
     
 Other utility scripts:
 - getAlphaFoldPAEs.py
+- retrieve_fasta_from_uniprot.py
+- copy_colabfold_predictions.py
 - plot_domain_histogram.py
 - filter_solution_list.py
 - clean_up_solutions.py
 - write_domain_info.py
 - load_tophits_in_chimerax.py
+- generate_Rplot.py
 
 NOTE: Try out the [example](example/example.md) to test the workflow and correct installation.
 
@@ -179,7 +182,7 @@ Generate a new .eps plot of the fitting statistics from one fitting list with si
 
 
 ### getAlphaFoldPAEs.py
-Fetching AlphaFold predicted alignment error from a list of Uniprot ID. Not used now but might be useful for other methods of domain parsing.
+Fetching AlphaFold predicted alignment error from a list of Uniprot IDs. Not used now but might be useful for other methods of domain parsing.
 
 > Input: A list of Uniprot ID (1 per line) in text format (.txt or .csv)
 > Output: A download directory containing PAEs downloading from alphafold.ebi.ac.uk
