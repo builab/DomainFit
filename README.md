@@ -91,7 +91,9 @@ NOTE: Try out the [example](example/example.md) to test the workflow and correct
 Downloading from AFDB from a list of UniprotID
 
 > Input: A list of UniprotIDs (1 per line) in text format (.txt or .csv)
+
 > Output: A download directory containing pdbs downloading from alphafold.ebi.ac.uk
+
 > Note: The list_proteins.csv must be free of special characters otherwise the program will complain about Unicode utf-8 error. The best way to prepare the file is to copy from a list to a text editor such as gedit.
 
 	getAlphaFoldPDBs.py --ilist list_proteins.csv --odir pdb_files
@@ -102,6 +104,7 @@ Downloading from AFDB from a list of UniprotID
 Generating domain pdbs: Parse automatically using phenix.process_predicted_model, can use default parameters or options.
 
 > Input: AlphaFold predicted pdbs
+
 > Output: Domain-parsed pdbs (*domains.pdb) and domain information files (*.domains)
 
 	process_predicted_models.py pdb_files domains nocpu
@@ -110,6 +113,7 @@ Generating domain pdbs: Parse automatically using phenix.process_predicted_model
 Saving domain-separated pdbs using info from the previous step: Parse through domain info and save domains into individual pdbs. Additional screenshots are taken of each domain.
 
 > Input: Domain-parsed pdbs, domain_info files folder
+
 > Output: Domain-separated pdbs + pngs
 
 	save_domains_from_info.py pdb_files domains single_domains minResidueNo maxResidueNo nocpu
@@ -119,6 +123,7 @@ Saving domain-separated pdbs using info from the previous step: Parse through do
 Fitting using ChimeraX: Take each domain and fit it into the density automatically using ChimeraX built in function fitmap. Output pdb saves the fit orientation. Additional screenshots are taken of each domain fitted into the density. A CSV file is generated to document all hits and their respective values (correlation, overlay, overlap, etc.). The default map level is set to 0.034 and a map resolution of 5 Å. Make sure to change this value to the corresponding value for your density.
 
 > Input: Domain-separated pdbs + protein density
+
 > Output: Solutions with Best-hit pdbs + pngs + csvs
 
 	fit_domains_in_chimerax.py inputDir outputDir inputMap mapLevel resolution searchNo noProcessor
@@ -131,6 +136,7 @@ Fitting using ChimeraX: Take each domain and fit it into the density automatical
 Clean up the solution after having a look at it
 
 > Input: Best-hit pdbs + pngs + csvs
+
 > Output: Clean up the solution folder keeping only top hits
 
 	clean_up_solutions.py solution_dir numberTopHitsRetained
@@ -140,6 +146,7 @@ Clean up the solution after having a look at it
 Visualizing domain features: Generates histograms based on the number of residues per domain
 
 > Input: **\<processed>** directory
+
 > Output: histogram
 
 	plot_domain_histogram.py domain_info_dir
@@ -149,6 +156,7 @@ Visualizing domain features: Generates histograms based on the number of residue
 Generate a .cxc file to load the top hits for visualization in ChimeraX.
 
 > Input: density + solution_dir
+
 > Output: .cxc file to open in ChimeraX
 
 	load_tophits_in_chimerax.py density solutions_dir number_of_top_hit minsize
@@ -158,6 +166,7 @@ Generate a .cxc file to load the top hits for visualization in ChimeraX.
 Generate a new .csv file with a minimum size filtering
 
 > Input: solution_dir/fit_log_revised.csv file
+
 > Output: filtered csv file
 
 	filter_solution_list.py solutions_list minsize
@@ -167,6 +176,7 @@ Generate a new .csv file with a minimum size filtering
 Generate a new .eps plot of the fitting statistics from one fitting list with size filtering
 
 > Input: solution_dir/fit_log_revised.csv file, minimum size in amino acids (default = 0)
+
 > Output: solutions_dir/summaryplot.eps
 
 	visualize_fit_stats.py solutions_list minsize
@@ -176,6 +186,7 @@ Generate a new .eps plot of the fitting statistics from one fitting list with si
  Generate a visual of top solutions from many searches
 
  > Input: solution directories of many densities, a .txt file containing the list of those directories
+
  > Output: eps file showing
 
 	visualize_solutions.py solutions_csv_list cutoff_rank min_size outputPlot
@@ -185,6 +196,7 @@ Generate a new .eps plot of the fitting statistics from one fitting list with si
 Fetching AlphaFold predicted alignment error from a list of Uniprot IDs. Not used now but might be useful for other methods of domain parsing.
 
 > Input: A list of Uniprot ID (1 per line) in text format (.txt or .csv)
+
 > Output: A download directory containing PAEs downloading from alphafold.ebi.ac.uk
 
 	getAlphaFoldPAEs.py --ilist list_proteins.csv --odir pdb_files --ignore_existing
@@ -193,6 +205,7 @@ Fetching AlphaFold predicted alignment error from a list of Uniprot IDs. Not use
 Generate PDF for the R-plot to see the statistical calculation for top hit domains.
 
 > Input: solution_dir/fit_log_revised.csv file, number of top hits to plot.
+
 > Output: A PDF file for each domain in the solution folder
 
  	generate_Rplot.py solution_dir/fit_log_revised.csv 10
