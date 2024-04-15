@@ -189,4 +189,12 @@ Fetching AlphaFold predicted alignment error from a list of Uniprot IDs. Not use
 
 	getAlphaFoldPAEs.py --ilist list_proteins.csv --odir pdb_files --ignore_existing
 
+### generate_Rplot.py
+Generate PDF for the R-plot to see the statistical calculation for top hit domains.
+
+> Input: solution_dir/fit_log_revised.csv file, number of top hits to plot.
+> Output: A PDF file for each domain in the solution folder
+
+ 	generate_Rplot.py solution_dir/fit_log_revised.csv 10
+
  
