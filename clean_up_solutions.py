@@ -6,6 +6,7 @@
 """
 # Usage
 # python clean_up_solutions.py solutions_dir number_of_top_candidate_retained
+# Only do this once you are sure about the top hits.
 # Write a file for the best fit correlation for each domain as a summary
 
 import sys,os
