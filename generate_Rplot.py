@@ -17,7 +17,7 @@ def print_usage ():
 	print("usage: generate_Rplot.py solutions_list number_of_tophits")
 	print("\tsolutions_list the revised csv file")
 	print("\tnumber_of_tophits Number of hit included in pdf generation (default = 10)")
-	print("eg: visualize_stats.py solutions_density1/fit_logs_revised.csv 100")
+	print("eg: generate_Rplot.py solutions_density1/fit_logs_revised.csv 100")
 	sys.exit()
 	
 def generate_Rpdf (outlist, model_basename):
