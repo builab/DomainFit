@@ -42,11 +42,13 @@ For Linux, install Biopython and numpy using pip
 
 
 For MacOS and some Linux, you have to install pandas inside ChimeraX
-Open ChimeraX, select Tools/General/Shell
+Inside MacOS, open the terminal and type:
 
-Inside the shell type:
+    /Applications/ChimeraX-1.7.1.app/Contents/bin/python3.11 -m pip install pandas
 
-    [1]: pip install pandas
+In Linux, look for the installed ChimeraX folder and open the terminal and type:
+
+    /usr/lib/ucsf-chimerax/bin/python3.11  -m pip install pandas
 
 
 R with fdrtool & psych
