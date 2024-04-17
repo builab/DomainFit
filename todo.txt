@@ -1,2 +1,4 @@
 clean *remainder.seq automatically for process_models
-check if there are missing .domains file, does the protein copies properly
+
+2024/04/16
+check if there are missing .domains file, does the protein copies properly: It is " just disorder protein"
