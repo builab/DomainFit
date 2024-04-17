@@ -38,9 +38,10 @@ For Linux, install Biopython and numpy using pip
 
      pip install numpy
      pip install biopython
+     pip install pandas
 
 
-For MacOS and Linux, you have to install pandas inside ChimeraX
+For MacOS and some Linux, you have to install pandas inside ChimeraX
 Open ChimeraX, select Tools/General/Shell
 
 Inside the shell type:
