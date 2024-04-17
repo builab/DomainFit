@@ -107,6 +107,8 @@ Generating domain pdbs: Parse automatically using phenix.process_predicted_model
 
 > Output: Domain-parsed pdbs (*domains.pdb) and domain information files (*.domains)
 
+> Note: Unfortunately, there are many *_remainder.seq file produced in the main folder. You just need to delete those files manually for now.
+
 	process_predicted_models.py pdb_files domains nocpu
 
 ### 3. Save each domain into single PDB file
