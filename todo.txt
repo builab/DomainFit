@@ -1,0 +1,2 @@
+clean *remainder.seq automatically for process_models
+check if there are missing .domains file, does the protein copies properly
