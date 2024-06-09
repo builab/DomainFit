@@ -50,7 +50,7 @@ if __name__=='__main__':
 		if line:
 			out = outdir + '/' + line + '.fasta'
 			retrieveFasta(line, out)
-		time.sleep(5)
+		#time.sleep(5)
 		
 	if useList == 1:
 		list.close()
