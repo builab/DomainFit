@@ -2,6 +2,7 @@
 # # -*- coding: utf-8 -*-
 # Author: HB &  ChatGPT
 # Script to copy/rename rank_001 prediction from colabfold_batch to a new directory for running DomainFit
+# The file name pattern must be "UniprotID_unrelaxed_rank_001"
 
 import os
 import shutil
