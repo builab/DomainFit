@@ -3,7 +3,7 @@
 # 2024/06/04
 
 """
-@Script Script to rank AF3
+@Script Script to rank AF3 cif files
 @Authors Huy Bui & ChatGPT
 """
 
@@ -49,7 +49,7 @@ def process_files(directory_path):
     
     # Rename the files based on their rank
     for rank, (file_path, value) in enumerate(file_values):
-        new_file_path = f"rank_{rank:03d}_{file_path}.cif"
+        new_file_path = f"rank_{rank+1:03d}_{file_path}.cif"
         shutil.copy(file_path, new_file_path)
         print(f"File {file_path} copied to {new_file_path} with value {value}")
 
