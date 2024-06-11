@@ -30,7 +30,7 @@ First, download all the fasta files listed in the `missingAF.log` file and then 
 
 Now, copy and rename all the rank_001 pdb files (top rank out of 5 predictions from ColabFold) to the downloaded AlphaFold folder
 
-	copy_colabfold_predictions colabfold_pred pdb_files
+	copy_colabfold_predictions.py colabfold_pred pdb_files
 
 
 ## Step 2: Automatically divide the PDBs into domains
