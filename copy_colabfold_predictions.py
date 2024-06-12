@@ -22,7 +22,11 @@ def copy_files(source_dir, dest_dir):
             # Copy the file to the destination directory
             shutil.copy(source_file, dest_file)
             print(f"Copied {source_file} to {dest_file}")
-
+            # Json file
+            source_json_file = source_file.replace('_unrelaxed_rank_001', '_scores_rank_001').replace('.pdb', '.json')
+            dest_json_file = dest_file.replace('.pdb', '.json')
+            shutil.copy(source_json_file, dest_json_file)
+            print(f"Copied {source_json_file} to {dest_json_file}")
 
 if __name__ == "__main__":
     print("| copy_colabfold_predictions.py |\nCopy and rename colabfold_batch rank 1 prediction to another folder")

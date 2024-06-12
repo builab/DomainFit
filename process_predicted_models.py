@@ -80,6 +80,9 @@ if __name__ == "__main__":
 		out_pdb = re.sub("{}$".format(ext), '_domains', pdb)			
 		cmds.append(f'phenix.process_predicted_model {input_dir}/{pdb} processed_model_prefix={output_dir}/{out_pdb} {options}')
 		
+	# Debug
+	#print(cmds[1])
+		
 	# Execute command list
 	count = threads
 	with multiprocessing.Pool(processes=count) as pool:
@@ -87,7 +90,11 @@ if __name__ == "__main__":
 
 	# Writing info
 	for pdb in os.listdir(output_dir):
-		if pdb.endswith("domains.pdb"):  
+		# Clean up the single PDB files
+		if "domains_A" in pdb:
+			os.remove(os.path.join(output_dir, pdb))
+			print("Delete " + pdb)
+		if pdb.endswith("domains.pdb"):
 			print("Writing info for " + pdb)
 			protein_basename = os.path.basename(pdb).replace('_domains.pdb','')
 			write_domains(os.path.join(output_dir, pdb), os.path.join(output_dir, f"{protein_basename}.domains"))

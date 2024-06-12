@@ -4,3 +4,5 @@ clean *remainder.seq automatically for process_models
 check if there are missing .domains file, does the protein copies properly: It is " just disorder protein"
 
 clarify installing pandas outside or inside for Chimerax
+
+To make script to extract PAE from AF3 json

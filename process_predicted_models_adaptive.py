@@ -111,6 +111,10 @@ if __name__ == "__main__":
 
 	# Writing info
 	for pdb in os.listdir(output_dir):
+		# Clean up the single PDB files
+		if "domains_A" in pdb:
+			os.remove(os.path.join(output_dir, pdb))
+			print("Delete " + pdb)
 		if pdb.endswith("domains.pdb"):  
 			print("Writing info for " + pdb)
 			protein_basename = os.path.basename(pdb).replace('_domains.pdb','')

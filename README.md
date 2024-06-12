@@ -6,7 +6,7 @@ Goal: Provided a database of proteins and an isolated electron density, and find
 The program works for Linux and MacOS. For MacOS, a bit more modification is needed.
 
 ### Software and Package Requirements
-1. **Phenix** v1.20.1 or higher (https://phenix-online.org/)
+1. **Phenix** v1.21 or higher (https://phenix-online.org/)
    
         phenix.process_predicted_model
    
