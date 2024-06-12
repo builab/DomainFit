@@ -8,7 +8,7 @@
 # Operate from the main folder
 # Load the top hits in ChimeraX
 
-import sys,os,subprocess,shutil.which
+import sys,os,subprocess,shutil
 import pandas as pd
 
 def print_usage ():
