@@ -8,7 +8,7 @@
 # Operate from the main folder
 # Load the top hits in ChimeraX
 
-import sys,os, subprocess
+import sys,os,subprocess,shutil.which
 import pandas as pd
 
 def print_usage ():
@@ -75,7 +75,7 @@ if __name__ == "__main__":
 		chimerax_path = default_macos_chimera_path
 	
 	# Check if ChimeraX path is correct	
-	if os.path.exists(chimerax_path) == 0 and which(chimerax_path) is None:
+	if os.path.exists(chimerax_path) == 0 and shutil.which(chimerax_path) is None:
 		print(f"The file '{chimerax_path}' does not exist.")
 		print("Modify the script for the path of ChimeraX version from 1.5 and above.")
 		print(f"Or just open the {outfile} with ChimeraX")

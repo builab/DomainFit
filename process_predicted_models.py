@@ -98,3 +98,9 @@ if __name__ == "__main__":
 			print("Writing info for " + pdb)
 			protein_basename = os.path.basename(pdb).replace('_domains.pdb','')
 			write_domains(os.path.join(output_dir, pdb), os.path.join(output_dir, f"{protein_basename}.domains"))
+			
+	# Clean up .seq (not always produced)
+	for file in os.listdir("."):
+		if file.endswith("remainder.seq"):
+			os.remove(file)
+			print("Delete " file)
