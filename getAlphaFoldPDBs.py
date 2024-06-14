@@ -19,7 +19,7 @@ import time
 BASE_URL = "https://alphafold.ebi.ac.uk/files/AF-{}-F1-model_v4.pdb"
 
 def retrieve_af_file(uniprot_id, outdir, ignore_existing):
-    print('Retrieving', uniprot_id, '.pdb')
+    print(f'Retrieving {uniprot_id}.pdb')
 
     outfile = os.path.join(outdir, f"{uniprot_id}.pdb")
     

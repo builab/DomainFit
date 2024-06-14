@@ -21,7 +21,7 @@ BASE_URL = "https://alphafold.ebi.ac.uk/files/AF-{}-F1-predicted_aligned_error_v
 
 
 def retrieve_af_file(uniprot_id, outdir, ignore_existing):
-    print('Retrieving', uniprot_id, '.json')
+    print('Retrieving {uniprot_id}.json')
 
     outfile = os.path.join(outdir, f"{uniprot_id}.json")
     
