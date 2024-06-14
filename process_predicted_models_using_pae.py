@@ -3,8 +3,9 @@
 
 """
 @Authors Max Tong & HB
-@Require phenix 1.20
+@Require phenix 1.21
 @v0.2 Update with multiprocessing and phenix lddt option
+@Experimental support for PAE as a separate script for easy scripting
 """
 import sys,os,time,platform
 import Bio
@@ -18,8 +19,8 @@ script_dir=os.path.dirname(os.path.realpath(__file__))
 
 
 def print_usage ():
-	print("usage: process_predicted_models.py <inputDir> <outputDir> <noProc> options")
-	print("eg: process_predicted_models.py input domains 10 split_model_by_compact_regions=True")
+	print("usage: process_predicted_models_using_pae.py <inputDir> <outputDir> <noProc> options")
+	print("eg: process_predicted_models_using_pae.py input domains 10 pae_power=1 pae_cutoff=5 pae_graph_resolution=1")
 	sys.exit()
 	
 def execute(cmd):
@@ -76,9 +77,11 @@ if __name__ == "__main__":
 		else:
 			continue
 			
+		json = pdb.replace(ext, '.json')
+			
 		# Add them to the command list
 		out_pdb = re.sub("{}$".format(ext), '_domains', pdb)			
-		cmds.append(f'phenix.process_predicted_model {input_dir}/{pdb} processed_model_prefix={output_dir}/{out_pdb} {options}')
+		cmds.append(f'phenix.process_predicted_model {input_dir}/{pdb} processed_model_prefix={output_dir}/{out_pdb} pae_file={input_dir}/{json} {options}')
 		
 	# Debug
 	#print(cmds[1])
