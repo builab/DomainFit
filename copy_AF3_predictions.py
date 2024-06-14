@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # # -*- coding: utf-8 -*-
+# 2024/06/14 extract PAE as well
 # Author: HB &  ChatGPT
 # Script to copy/rename rank_000 prediction from AF3 to a new directory for running DomainFit
 # The file name pattern must be fold_i7mh00_model_3_rank_001.cif, will be renamed to i7mh00.cif
@@ -20,6 +21,11 @@ def copy_files(source_dir, dest_dir):
             # Copy the file to the destination directory
             shutil.copy(source_file, dest_file)
             print(f"Copied {source_file} to {dest_file}")
+            # Json file
+            source_json_file = source_file.replace('.cif', '.json')
+            dest_json_file = dest_file.replace('.cif', '.json')
+            shutil.copy(source_json_file, dest_json_file)
+            print(f"Copied {source_json_file} to {dest_json_file}")
 
 
 if __name__ == "__main__":
