@@ -6,3 +6,6 @@ check if there are missing .domains file, does the protein copies properly: It i
 clarify installing pandas outside or inside for Chimerax
 
 To make script to extract PAE from AF3 json
+
+
+Phenix 1.21.5027 does output individiual file, which should be remove
