@@ -72,6 +72,7 @@ Before usage
 Scripts:
 - getAlphaFoldPDBs.py
 - process_predicted_models.py
+- process_predicted_models_using_pae.py
 - save_domains_from_info.py
     - save_domain_single_from_info.py
 - fit_domains_in_chimerax.py
@@ -103,6 +104,12 @@ Downloading from AFDB from a list of UniprotID
 	getAlphaFoldPDBs.py --ilist list_proteins.csv --odir pdb_files
 
  missingAF.log file will tell you which proteins do not have AlphaFold structure available.
+ 
+ 
+ If you also want to get the PAE files for domain parsing using PAE graph later
+ 
+ 	getAlphaFoldPAEs.py --ilist list_proteins.csv --odir pdb_files
+
 
 ### 2. Parsing AlphaFold predicted models into domains
 Generating domain pdbs: Parse automatically using phenix.process_predicted_model, can use default parameters or options.
@@ -111,9 +118,16 @@ Generating domain pdbs: Parse automatically using phenix.process_predicted_model
 
 > Output: Domain-parsed pdbs (*domains.pdb) and domain information files (*.domains)
 
-> Note: Unfortunately, there are many *_remainder.seq file produced in the main folder. You just need to delete those files manually for now.
+> Note: Unfortunately, there are many *_remainder.seq file produced in the main folder. They will be deleted by the script at the end
 
 	process_predicted_models.py pdb_files domains nocpu
+	
+
+Alternatively, you can also generate domains using PAE file (https://github.com/tristanic/pae_to_domains). Change the pae_graph_resolution from 1 to 5 for more domains.
+
+	process_predicted_models_using_pae.py pdb_files domains nocpu pae_graph_resolution=1
+
+
 
 ### 3. Save each domain into single PDB file
 Saving domain-separated pdbs using info from the previous step: Parse through domain info and save domains into individual pdbs. Additional screenshots are taken of each domain.

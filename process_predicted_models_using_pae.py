@@ -20,6 +20,7 @@ script_dir=os.path.dirname(os.path.realpath(__file__))
 
 def print_usage ():
 	print("usage: process_predicted_models_using_pae.py <inputDir> <outputDir> <noProc> options")
+	print("using pae_graph_resolution from 1 to 5 for more domain")
 	print("eg: process_predicted_models_using_pae.py input domains 10 pae_power=1 pae_cutoff=5 pae_graph_resolution=1")
 	sys.exit()
 	
