@@ -63,8 +63,8 @@ for file in os.listdir(domain_info_dir):
 # An "interface" to matplotlib.axes.Axes.hist() method
 n, bins, patches = plt.hist(x=d, bins=range(min(d), max(d) + 20, 20), color='#0504aa',
                             alpha=0.7, rwidth=0.85)
-print(n)
-print(bins)
+#print(n)
+#print(bins)
 plt.grid(axis='y', alpha=0.75)
 plt.xlabel('Domain size (aa)')
 plt.ylabel('Number of Domains')
