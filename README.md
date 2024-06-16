@@ -5,6 +5,8 @@ Goal: Provided a database of proteins and an isolated electron density, and find
 
 The program works for Linux and MacOS. For MacOS, a bit more modification is needed.
 
+Update: 2024/06/15 It seems like parsing using PAE is a lot better. From AFDB, you can download the json in the same folder as the PDB. With ColabFold prediction, use the copy_colabfold_predictions.py. With AF3, it is a bit tricky. You can use the rank_AF3_models.py and copy_AF3_predictions.py but it is not as straight forward to use.
+
 ### Software and Package Requirements
 1. **Phenix** v1.21 or higher (https://phenix-online.org/)
    
