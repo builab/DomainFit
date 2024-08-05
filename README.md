@@ -19,7 +19,7 @@ Update: 2024/06/15 It seems like parsing using PAE is a lot better. From AFDB, y
 3. **Python** 3 or higher
 	
         BioPython
-        pandas, numpy
+        pandas< 2.0, numpy < 2.0
 
 6. **Rscript** 3.6.3 or higher  (https://cran.r-project.org/)
 
