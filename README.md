@@ -16,10 +16,10 @@ Update: 2024/06/15 It seems like parsing using PAE is a lot better. From AFDB, y
    
         chimerax.fitmap
 
-3. **Python** 3 or higher
+3. **Python** 3.10 or higher (Tested with the following)
 	
         BioPython
-        pandas (should be ok with both panda 1.0 and 2.0), numpy < 2.0
+        pandas (should be ok with both panda 1.0 and 2.0), numpy=2.0
 
 6. **Rscript** 3.6.3 or higher  (https://cran.r-project.org/)
 
