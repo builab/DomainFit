@@ -82,7 +82,7 @@ if __name__ == "__main__":
 
 	# Find best domain based on largest change in fit correlation between first and second hit
 	import pandas as pd
-	df = pd.read_csv(log_file, sep='\s*,\s*')
+	df = pd.read_csv(log_file, sep='\s*,\s*', engine='python')
 	df.info()
 	df.dropna()
 	print(df)

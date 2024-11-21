@@ -1,4 +1,4 @@
-# DomainFit
+# DomainFit v1.2
 Script to autofit domains in Chimerax
 
 Goal: Provided a database of proteins and an isolated electron density, and find the protein that best fits the electron density geometrically
@@ -19,7 +19,7 @@ Update: 2024/06/15 It seems like parsing using PAE is a lot better. From AFDB, y
 3. **Python** 3 or higher
 	
         BioPython
-        pandas< 2.0, numpy < 2.0
+        pandas (should be ok with both panda 1.0 and 2.0), numpy < 2.0
 
 6. **Rscript** 3.6.3 or higher  (https://cran.r-project.org/)
 
@@ -27,6 +27,11 @@ Update: 2024/06/15 It seems like parsing using PAE is a lot better. From AFDB, y
         psych
 
 ## Installation
+
+It is probably easier to use conda environment to avoid conflict with numpy version (1 & 2)
+
+	conda create -n DomainFit python=3.10
+	conda activate DomainFit
 
 DomainFit Python Script
 
@@ -38,9 +43,9 @@ DomainFit Python Script
 For MacOSX, you have to modify the "chimerax_path" variable to your ChimeraX's binary file. e.g. /Applications/ChimeraX-1.5.app/Contents/MacOS/ChimeraX in "save_domains_from_info.py" and "fit_domains_in_chimerax.py" and "load_tophits_in_chimerax.py"
 For Linux, install Biopython and numpy using pip
 
-     pip install numpy
-     pip install biopython
-     pip install pandas
+     pip install numpy==2.1
+     pip install biopython==1.84
+     pip install pandas==2.2.3
 
 
 For MacOS and some Linux, you have to install pandas inside ChimeraX
@@ -50,7 +55,7 @@ Inside MacOS, open the terminal and type:
 
 In Linux, look for the installed ChimeraX folder and open the terminal and type:
 
-    /usr/lib/ucsf-chimerax/bin/python3.11  -m pip install pandas
+    /usr/lib/ucsf-chimerax/bin/python3.11  -m pip install pandas==2.2.3
 
 
 R with fdrtool & psych

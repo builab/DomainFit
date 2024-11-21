@@ -105,7 +105,7 @@ import pandas as pd
 
 pval_file = output_dir + '/' + model_basename +  '_pvalues.csv'
 
-df = pd.read_csv(pval_file, sep='\s*,\s*')
+df = pd.read_csv(pval_file, sep='\s*,\s*', engine='python')
 # df.info()
 df.dropna()
 # print(df)
