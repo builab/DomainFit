@@ -46,6 +46,7 @@ For Linux, install Biopython and numpy using pip
      pip install numpy==2.1
      pip install biopython==1.84
      pip install pandas==2.2.3
+     pip install matplotlib
 
 
 For MacOS and some Linux, you have to install pandas inside ChimeraX
