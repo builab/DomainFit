@@ -239,7 +239,7 @@ Generate PDF for the R-plot to see the statistical calculation for top hit domai
  	generate_Rplot.py solution_dir/fit_log_revised.csv 10
 
 ## Citation
-If you use DomainFit for your work, please cite the following preprint:
+If you use DomainFit for your work, please cite the following publication:
 	
 	Gao, J., Tong, M., Lee, C., Gaertig, J., Legal., T., Bui, K.H., (2024) DomainFit: Identification of Protein Domains in cryo-EM maps at Intermediate Resolution using AlphaFold2-predicted Models. Structure. Doi: https://doi.org/10.1016/j.str.2024.04.017
 
