@@ -1,3 +1,10 @@
 #!/usr/bin/env bash
-DOMAIN_FIT="/Users/kbui2/Documents/GitHub/DomainFit"
-export PATH=$PATH:$DOMAIN_FIT
+
+# Get the directory where this script is located
+DOMAIN_FIT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Export variables
+export DOMAIN_FIT
+
+# Add script directory to PATH if needed
+export PATH="$DOMAIN_FIT:$PATH"
