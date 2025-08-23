@@ -80,7 +80,6 @@ if __name__ == "__main__":
 
 	print(f'Process_predicted_model options: {options}')
 
-	# This can speed up significantly using multiprocessing in the future
 	cmds=[]
 	for pdb in os.listdir(input_dir):
 		if pdb.endswith(".pdb"):
