@@ -52,7 +52,7 @@ if __name__ == "__main__":
 		
 	chimerax_path = "chimerax"
 	if useMacOs == 1:
-		chimerax_path = "/Applications/ChimeraX-1.5.app/Contents/MacOS/ChimeraX"
+		chimerax_path = "/Applications/ChimeraX-1.10.1.app/Contents/MacOS/ChimeraX"
 	
 	# Check if ChimeraX path is correct	
 	if os.path.exists(chimerax_path) == 0 and which(chimerax_path) is None:
