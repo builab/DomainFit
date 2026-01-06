@@ -91,36 +91,32 @@ if useMacOs == 0 :
 	run(session, 'save %s/%s.png width 1500 super 3' % (output_dir, model_basename))
 
 # Generate p_values
-
 cmd = f'Rscript {script_dir}/pval_from_solutions.R {outlist} correlation_about_mean'
-
 print(f'start {cmd}', datetime.now())
-status = subprocess.call(cmd,shell=True)
-if status != 0:
-	print(f"Error in {cmd}.Exiting...")
+status = subprocess.call(cmd, shell=True)
+# We don't extract P-values here anymore because pandas is broken in ChimeraX
 print(f'end {cmd}', datetime.now()) 
 
-# Extract p_values
-import pandas as pd
+# Extract the unique temp log path passed as the 7th argument
+# We use -1 to get the last argument passed, which is our temp log path
+temp_log_path = sys.argv[-1] 
 
-pval_file = output_dir + '/' + model_basename +  '_pvalues.csv'
-
-df = pd.read_csv(pval_file, sep='\s*,\s*', engine='python')
-# df.info()
-df.dropna()
-# print(df)
-fit_no = df.loc[:, df.columns[0]][0]
-corr_mean = df.loc[:, df.columns[26]][0]
-pvalue = df.loc[:, df.columns[38]][0]
-# Use BH_adjusted_pvalues
-bhpvalue = df.loc[:, df.columns[41]][0]
-eta0 = df.loc[:, df.columns[39]][0]
-# print(df.loc[:, df.columns[0]])
-
-# Log best results into log_file
-log_file = output_dir + '/fit_logs.txt'
-log = open(log_file, "a")
-log.write('%s,%d,%0.4f,%0.4f,%0.4f,%0.4f,%0.4f,%s,%0.4f,%0.4f,%.6g,%.6g\n' % (model_basename, model.chains[0].num_existing_residues, best_corr, second_best_corr, difference, worst_best_corr, range, fit_no, corr_mean, eta0, pvalue, bhpvalue))
-log.close()
-
-# runscript /storage2/Thibault/Max/ProteinAnalysis/fit_in_chimerax.py /storage2/Thibault/Max/test_parsing /storage2/Thibault/Max/test_parsing C1C2_MAP_only_erase.mrc Q22DM0.pdb
+try:
+    with open(temp_log_path, "w") as log:
+        # Find the path to the P-value CSV created by the Rscript
+        pval_file = os.path.join(output_dir, model_basename + '_pvalues.csv')
+        
+        # Write basic metrics + the path to the P-value file
+        log.write('%s,%d,%0.4f,%0.4f,%0.4f,%0.4f,%0.4f,%s\n' % (
+            model_basename, 
+            model.chains[0].num_existing_residues, 
+            best_corr, 
+            second_best_corr, 
+            difference, 
+            worst_best_corr, 
+            range,
+            pval_file
+        ))
+    print(f"Worker finished: {model_basename}")
+except Exception as e:
+    print(f"Worker failed to write log: {e}")
