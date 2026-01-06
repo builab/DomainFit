@@ -1,11 +1,13 @@
-# DomainFit v1.2
+# DomainFit v1.3
 Script to autofit domains in Chimerax
 
 Goal: Provided a database of proteins and an isolated electron density, and find the protein that best fits the electron density geometrically
 
 The program works for Linux and MacOS. For MacOS, a bit more modification is needed.
 
-Update: 2025/01/20 Now using MIT license.
+Update v1.3: 2026/01/05 Updated with tqdm progress bar similar to DomainSeeker
+
+Update v1.2: 2025/01/20 Now using MIT license.
 
 Update: 2024/06/15 parsing using PAE is a lot better. From AFDB, you can download the json in the same folder as the PDB. With ColabFold prediction, use the copy_colabfold_predictions.py. With AF3, it is a bit tricky. You can use the rank_AF3_models.py and copy_AF3_predictions.py but it is not as straightforward to use.
 
@@ -49,6 +51,7 @@ For Linux, install Biopython and numpy using pip
      pip install biopython==1.84
      pip install pandas==2.2.3
      pip install matplotlib
+     pip install tqdm
 
 
 For MacOS and some Linux, you have to install pandas inside ChimeraX
