@@ -57,9 +57,14 @@ if __name__ == "__main__":
             if os.path.exists(pval_csv):
                 try:
                     p_df = pd.read_csv(pval_csv, sep='\s*,\s*', engine='python').dropna()
-                    
+
+                    # Select the row with the best (lowest) BH_adjusted_Pvalue
+                    # Column index 41 = BH_adjusted_Pvalue
+                    best_idx = p_df.iloc[:, 41].astype(float).idxmin()
+                    best_row = p_df.loc[best_idx]
+
                     # CLEANING: Strip extra quotes from the R output if they exist
-                    p_val_raw = str(p_df.iloc[0,0]).replace('"', '').replace("'", "")
+                    p_val_raw = str(best_row.iloc[0]).replace('"', '').replace("'", "")
                     
                     row = {
                         "Domain": parts[0],
@@ -69,11 +74,11 @@ if __name__ == "__main__":
                         "Diff": float(parts[4]),
                         "Worst_Corr": float(parts[5]),
                         "Range": float(parts[6]),
-                        "P_val_best_fit": p_val_raw, # Cleaned value
-                        "Corr_about_mean": p_df.iloc[0,26],
-                        "Eta0": p_df.iloc[0,39],
-                        "Pvalue": p_df.iloc[0,38],
-                        "BH_adjusted_Pvalue": p_df.iloc[0,41]
+                        "P_val_best_fit": p_val_raw,  # Cleaned value
+                        "Corr_about_mean": best_row.iloc[26],
+                        "Eta0": best_row.iloc[39],
+                        "Pvalue": best_row.iloc[38],
+                        "BH_adjusted_Pvalue": best_row.iloc[41]
                     }
                     all_rows.append(row)
                 except Exception as e:
