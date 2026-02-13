@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """
-Compile fit_logs_revised.csv from all *_pvalues.csv files in a directory.
+Compile fit_logs_revised.csv from all *_pvalues.csv files, joining NoRes
+from fit_logs.txt, then sorting by BH_adjusted_Pvalue (asc) and
+Corr_about_mean (desc).
 
 Usage:
-    python generate_fit_logs_revised.py <pvalues_dir> <output_dir>
+    python compile_fit_logs.py <pvalues_dir> <output_dir>
 
 Arguments:
     pvalues_dir  Directory containing *_pvalues.csv files
-    output_dir   Directory where fit_logs_revised.csv will be written
+    output_dir   Directory containing fit_logs.txt; revised CSV written here too
 """
 
 import sys
@@ -18,36 +20,19 @@ import pandas as pd
 from tqdm import tqdm
 
 
-# ---------------------------------------------------------------------------
-# Column index constants (0-based) within each *_pvalues.csv
-# These match the indices used in fit_domains_in_chimerax.py
-# ---------------------------------------------------------------------------
-COL_P_VAL_BEST_FIT   =  0   # first column — the best-fit p-value string from R
-COL_CORR_ABOUT_MEAN  = 26
-COL_PVALUE           = 38
-COL_ETA0             = 39
-COL_BH_ADJ_PVALUE    = 41   # used to select the best row per file
-
-
 def domain_name_from_path(filepath: str) -> str:
-    """
-    Derive a domain name from the pvalues CSV filename.
-    Strips the '_pvalues.csv' suffix so that e.g.
-    'domain_ABC_pvalues.csv' -> 'domain_ABC'.
-    """
+    """Strip _pvalues.csv suffix to get domain name."""
     basename = os.path.basename(filepath)
     for suffix in ("_pvalues.csv", "_pvalue.csv"):
         if basename.lower().endswith(suffix):
             return basename[: -len(suffix)]
-    # Fallback: just strip the extension
     return os.path.splitext(basename)[0]
 
 
 def process_pvalues_file(filepath: str) -> dict | None:
     """
-    Read a *_pvalues.csv file and return a result row dict,
-    selecting the row with the lowest BH_adjusted_Pvalue.
-    Returns None if the file cannot be parsed.
+    Read a *_pvalues.csv and return the best-row dict
+    (lowest BH_adjusted_pvalues), using named columns.
     """
     try:
         p_df = pd.read_csv(filepath, sep=r'\s*,\s*', engine='python').dropna()
@@ -56,27 +41,31 @@ def process_pvalues_file(filepath: str) -> dict | None:
             print(f"  [WARN] Empty after dropna: {filepath}")
             return None
 
-        # Guard against files that don't have enough columns
-        required_cols = max(COL_P_VAL_BEST_FIT, COL_CORR_ABOUT_MEAN,
-                            COL_PVALUE, COL_ETA0, COL_BH_ADJ_PVALUE)
-        if p_df.shape[1] <= required_cols:
-            print(f"  [WARN] Too few columns ({p_df.shape[1]}) in: {filepath}")
+        # Normalise column names: strip whitespace and lowercasing for lookup
+        p_df.columns = [c.strip() for c in p_df.columns]
+
+        required = {"correlation", "correlation_about_mean", "eta0", "pvalues", "bh_adjusted_pvalues"}
+        actual   = {c.lower() for c in p_df.columns}
+        missing  = required - actual
+        if missing:
+            print(f"  [WARN] Missing columns {missing} in: {filepath}")
             return None
 
-        # Pick the row with the best (lowest) BH-adjusted p-value
-        best_idx = p_df.iloc[:, COL_BH_ADJ_PVALUE].astype(float).idxmin()
-        best_row = p_df.loc[best_idx]
+        # Build a lowercase -> original name map for safe access
+        col_map = {c.lower(): c for c in p_df.columns}
 
-        # Clean the R-output p-value string (may carry stray quotes)
-        p_val_raw = str(best_row.iloc[COL_P_VAL_BEST_FIT]).replace('"', '').replace("'", "")
+        # Select the row with the best (lowest) BH_adjusted_pvalues
+        bh_col   = col_map["bh_adjusted_pvalues"]
+        best_idx = p_df[bh_col].astype(float).idxmin()
+        best_row = p_df.loc[best_idx]
 
         return {
             "Domain":             domain_name_from_path(filepath),
-            "P_val_best_fit":     p_val_raw,
-            "Corr_about_mean":    best_row.iloc[COL_CORR_ABOUT_MEAN],
-            "Eta0":               best_row.iloc[COL_ETA0],
-            "Pvalue":             best_row.iloc[COL_PVALUE],
-            "BH_adjusted_Pvalue": best_row.iloc[COL_BH_ADJ_PVALUE],
+            "Best_Corr":          float(best_row[col_map["correlation"]]),
+            "Corr_about_mean":    float(best_row[col_map["correlation_about_mean"]]),
+            "Eta0":               float(best_row[col_map["eta0"]]),
+            "Pvalue":             float(best_row[col_map["pvalues"]]),
+            "BH_adjusted_Pvalue": float(best_row[bh_col]),
         }
 
     except Exception as exc:
@@ -98,10 +87,18 @@ def main():
 
     os.makedirs(output_dir, exist_ok=True)
 
-    # Collect all *_pvalues.csv files (case-insensitive on the suffix)
-    pattern = os.path.join(pvalues_dir, "*_pvalues.csv")
-    pval_files = sorted(glob.glob(pattern))
+    # --- Load NoRes lookup from fit_logs.txt ---
+    log_file = os.path.join(output_dir, 'fit_logs.txt')
+    if not os.path.isfile(log_file):
+        print(f"Error: fit_logs.txt not found in: {output_dir}")
+        sys.exit(1)
 
+    logs_df  = pd.read_csv(log_file, usecols=["Domain", "NoRes"])
+    nores_map = dict(zip(logs_df["Domain"], logs_df["NoRes"]))
+    print(f"Loaded NoRes for {len(nores_map)} domains from fit_logs.txt")
+
+    # --- Process all *_pvalues.csv files ---
+    pval_files = sorted(glob.glob(os.path.join(pvalues_dir, "*_pvalues.csv")))
     if not pval_files:
         print(f"No *_pvalues.csv files found in: {pvalues_dir}")
         sys.exit(1)
@@ -113,10 +110,17 @@ def main():
 
     for fpath in tqdm(pval_files, desc="Processing"):
         row = process_pvalues_file(fpath)
-        if row:
-            all_rows.append(row)
-        else:
+        if row is None:
             skipped += 1
+            continue
+
+        # Join NoRes from fit_logs.txt; warn if not found
+        domain = row["Domain"]
+        if domain not in nores_map:
+            print(f"  [WARN] Domain '{domain}' not found in fit_logs.txt — NoRes set to NA")
+        row["NoRes"] = nores_map.get(domain, pd.NA)
+
+        all_rows.append(row)
 
     print(f"\nParsed:  {len(all_rows)} files")
     print(f"Skipped: {skipped} files")
@@ -125,9 +129,12 @@ def main():
         print("No valid data to write. Exiting.")
         sys.exit(1)
 
-    df = pd.DataFrame(all_rows)
+    # --- Assemble, sort and save ---
+    df = pd.DataFrame(all_rows, columns=[
+        "Domain", "NoRes", "Best_Corr", "Corr_about_mean",
+        "Eta0", "Pvalue", "BH_adjusted_Pvalue"
+    ])
 
-    # Sort by best BH_adjusted_Pvalue first, then highest Corr_about_mean
     df.sort_values(
         ['BH_adjusted_Pvalue', 'Corr_about_mean'],
         ascending=[True, False],
@@ -136,7 +143,6 @@ def main():
 
     revised_file = os.path.join(output_dir, 'fit_logs_revised.csv')
     df.to_csv(revised_file, index=False, quoting=csv.QUOTE_MINIMAL)
-
     print(f"\nSaved {len(df)} records → {revised_file}")
 
 
