@@ -20,7 +20,7 @@ import pandas as pd
 from tqdm import tqdm
 
 
-def domain_name_from_path(filepath: str) -> str:
+def domain_name_from_path(filepath):
     """Strip _pvalues.csv suffix to get domain name."""
     basename = os.path.basename(filepath)
     for suffix in ("_pvalues.csv", "_pvalue.csv"):
@@ -29,7 +29,12 @@ def domain_name_from_path(filepath: str) -> str:
     return os.path.splitext(basename)[0]
 
 
-def process_pvalues_file(filepath: str) -> dict | None:
+def clean_val(val):
+    """Strip whitespace and stray quotes, then cast to float."""
+    return float(str(val).strip().strip('"').strip("'"))
+
+
+def process_pvalues_file(filepath):
     """
     Read a *_pvalues.csv and return the best-row dict
     (lowest BH_adjusted_pvalues), using named columns.
@@ -41,8 +46,8 @@ def process_pvalues_file(filepath: str) -> dict | None:
             print(f"  [WARN] Empty after dropna: {filepath}")
             return None
 
-        # Normalise column names: strip whitespace and lowercasing for lookup
-        p_df.columns = [c.strip() for c in p_df.columns]
+        # Normalise column names: strip whitespace AND quotes (R output quirk)
+        p_df.columns = [c.strip().strip('"').strip("'") for c in p_df.columns]
 
         required = {"correlation", "correlation_about_mean", "eta0", "pvalues", "bh_adjusted_pvalues"}
         actual   = {c.lower() for c in p_df.columns}
@@ -51,21 +56,21 @@ def process_pvalues_file(filepath: str) -> dict | None:
             print(f"  [WARN] Missing columns {missing} in: {filepath}")
             return None
 
-        # Build a lowercase -> original name map for safe access
+        # Build lowercase -> original name map for safe access
         col_map = {c.lower(): c for c in p_df.columns}
 
         # Select the row with the best (lowest) BH_adjusted_pvalues
         bh_col   = col_map["bh_adjusted_pvalues"]
-        best_idx = p_df[bh_col].astype(float).idxmin()
+        best_idx = p_df[bh_col].apply(clean_val).idxmin()
         best_row = p_df.loc[best_idx]
 
         return {
             "Domain":             domain_name_from_path(filepath),
-            "Best_Corr":          float(best_row[col_map["correlation"]]),
-            "Corr_about_mean":    float(best_row[col_map["correlation_about_mean"]]),
-            "Eta0":               float(best_row[col_map["eta0"]]),
-            "Pvalue":             float(best_row[col_map["pvalues"]]),
-            "BH_adjusted_Pvalue": float(best_row[bh_col]),
+            "Best_Corr":          clean_val(best_row[col_map["correlation"]]),
+            "Corr_about_mean":    clean_val(best_row[col_map["correlation_about_mean"]]),
+            "Eta0":               clean_val(best_row[col_map["eta0"]]),
+            "Pvalue":             clean_val(best_row[col_map["pvalues"]]),
+            "BH_adjusted_Pvalue": clean_val(best_row[bh_col]),
         }
 
     except Exception as exc:
@@ -93,7 +98,7 @@ def main():
         print(f"Error: fit_logs.txt not found in: {output_dir}")
         sys.exit(1)
 
-    logs_df  = pd.read_csv(log_file, usecols=["Domain", "NoRes"])
+    logs_df   = pd.read_csv(log_file, usecols=["Domain", "NoRes"])
     nores_map = dict(zip(logs_df["Domain"], logs_df["NoRes"]))
     print(f"Loaded NoRes for {len(nores_map)} domains from fit_logs.txt")
 
