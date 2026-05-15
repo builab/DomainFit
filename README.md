@@ -5,6 +5,8 @@ Goal: Provided a database of proteins and an isolated electron density, and find
 
 The program works for Linux and MacOS. For MacOS, a bit more modification is needed.
 
+Update v1.3.1: 2026/05/14 Fix problem with AFDB v6
+
 Update v1.3: 2026/01/05 Updated with tqdm progress bar similar to DomainSeeker
 
 Update v1.2: 2025/01/20 Now using MIT license.
