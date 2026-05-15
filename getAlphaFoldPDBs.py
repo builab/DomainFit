@@ -5,7 +5,7 @@ Created on Sun Jul 12 00:33:50 2023
 
 Script to retrieve separate AF file from a list of UniProt IDs
 Note: If AF file is not available, the UniProt ID will be written in the missingAF.log
-Note: Only working with the AF v4!!!
+Note: Only working with the AF v6!!!
 
 @author: Bui, K.H., McGill University
 """
@@ -16,7 +16,7 @@ import urllib.error
 import urllib.request
 import time
 
-BASE_URL = "https://alphafold.ebi.ac.uk/files/AF-{}-F1-model_v4.pdb"
+BASE_URL = "https://alphafold.ebi.ac.uk/files/AF-{}-F1-model_v6.pdb"
 
 def retrieve_af_file(uniprot_id, outdir, ignore_existing):
     print(f'Retrieving {uniprot_id}.pdb')
